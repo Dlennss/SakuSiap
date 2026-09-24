@@ -1,0 +1,41 @@
+/* SakuSiap: presentation only; transaction states keep their semantic colors. */
+@theme {
+  --color-brand: #21714c;
+  --color-brand-ink: #1c4032;
+  --color-brand-accent: #f5bb99;
+  --color-brand-surface: #f3f8f5;
+}
+:root {
+  --brand: #21714c; --brand-ink: #1c4032; --brand-accent: #f5bb99;
+  --brand-surface: #f3f8f5; --brand-border: #dce9df;
+  --primary: #21714c; --primary-foreground: #fff; --ring: #21714c;
+  --background: #f3f8f5; --foreground: #20282c; --radius: 8px;
+}
+body { background: #f3f8f5; color: #20282c; font-family: Segoe UI, sans-serif; }
+body * { letter-spacing: 0 !important; }
+.brand-app-header { background: #ffffff; color: #1c4032; border-bottom: 3px solid #f5bb99; box-shadow: 0 3px 14px #18232d08; }
+.brand-app-header > .pointer-events-none { display: none; }
+.brand-app-header a { color: inherit; }
+.brand-app-header a[aria-label*="bantuan"] { color: inherit; border-color: #dce9df; border-radius: 8px; }
+.brand-app-header span.italic { font-style: normal; }
+.brand-app-header span[class*="text-[10px]"] { color: inherit; opacity: .8; }
+.brand-wordmark { color: inherit; }
+.brand-auth-shell { background: #f3f8f5; border-top: 6px solid #21714c; }
+.auth-card { border: 1px solid #dce9df; border-radius: 8px !important; box-shadow: 0 12px 48px #18232d0d !important; }
+.auth-card button[type="submit"] { background: #21714c !important; box-shadow: none !important; border-radius: 8px !important; }
+.auth-card input:not([type="checkbox"]), .auth-card button[type="button"]:not([aria-label]) { border-radius: 8px; }
+.auth-card a { color: #21714c !important; }
+.brand-categories { background: transparent; border: 0; box-shadow: none; border-radius: 0; padding: 0; }
+.brand-categories a { border-radius: 8px; border: 1px solid #dce9df; box-shadow: none; background: white; }
+.brand-categories a > div { border-radius: 8px; box-shadow: none; }
+.brand-categories > div { gap: 12px; } .brand-categories a { background: var(--brand-surface); border-color: transparent; } .brand-categories a > div { background: #fff; border-radius: 50%; } .brand-categories a[href="/kategori"] > div { background: var(--brand); color: #fff; }
+.brand-bottom-nav { border-radius: 0; border-top: 1px solid #dce9df; box-shadow: 0 -3px 14px #18232d06; }
+.brand-bottom-nav a { border-radius: 8px; }
+.brand-bottom-nav a[class*="#21714c"] { background: #f3f8f5; }
+.brand-retail-main section > div[class*="shadow-"], .brand-retail-main section > a[class*="shadow-"] { box-shadow: none; border-radius: 8px; }
+.brand-retail-main section > div[class*="rounded-"][class*="bg-linear-"] { background-image: none; background-color: white; }
+.brand-retail-main .blur-2xl, .brand-retail-main .blur-3xl { display: none; }
+.brand-retail-main h2 { font-size: 16px; line-height: 1.4; }
+.brand-retail-main section[class*="touch-action"] { border-radius: 8px; box-shadow: none; border: 1px solid #dce9df; }
+button, input, select, textarea { font-family: inherit; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
