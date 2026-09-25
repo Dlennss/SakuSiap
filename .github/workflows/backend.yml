@@ -1,0 +1,51 @@
+name: Backend CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "pulsa-be/**"
+      - ".github/workflows/backend.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "pulsa-be/**"
+      - ".github/workflows/backend.yml"
+
+concurrency:
+  group: backend-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test Go backend
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    defaults:
+      run:
+        working-directory: pulsa-be
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: pulsa-be/go.mod
+          cache-dependency-path: pulsa-be/go.sum
+
+      - name: Download dependencies
+        run: go mod download
+
+      - name: Run tests
+        env:
+          DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/sakusiap?sslmode=disable
+          JWT_SECRET: ci-jwt-secret
+          ADMIN_TOKEN: ci-admin-token
+          CORS_ORIGINS: http://localhost:3105
+        run: go test -timeout 5m ./...
+
+      - name: Build backend
+        run: go build ./...
