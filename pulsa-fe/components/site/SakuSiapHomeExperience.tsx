@@ -6,7 +6,6 @@ import {
   Bell,
   CheckCircle2,
   Eye,
-  Grid3X3,
   Plus,
   ReceiptText,
   Send,
@@ -130,48 +129,49 @@ export function SakuSiapHomeExperience({
           </div>
         </header>
 
-        <section className="mt-7 grid grid-cols-[1fr_132px] items-end gap-3 sm:grid-cols-[1fr_300px] sm:gap-6">
-          <div className="min-w-0 pb-1">
+        <section className="relative mt-6 min-h-[152px] overflow-hidden rounded-[24px] bg-[#f7fffb] p-5 shadow-[0_14px_38px_rgba(6,78,59,0.08)] ring-1 ring-emerald-900/8 sm:min-h-[230px] sm:p-7">
+          <div className="relative z-10 max-w-[58%] min-w-0 sm:max-w-xl">
             <p className="text-sm font-black text-[#05734d] sm:text-lg">
               Halo, {userName || "Selamat Datang"}!
             </p>
-            <h1 className="mt-2 text-[28px] font-black leading-[1.08] text-[#073d33] sm:text-5xl">
-              Transaksi harian. Beres.
+            <h1 className="mt-2 text-[24px] font-black leading-[1.12] text-[#073d33] sm:text-5xl">
+              Semua siap.
             </h1>
             <p className="mt-3 max-w-md text-sm font-semibold leading-6 text-[#56746d] sm:text-lg sm:leading-7">
-              Pulsa, saldo, tagihan, dan riwayat dalam satu aplikasi.
+              Pulsa, tagihan, saldo.
             </p>
           </div>
 
-          <div className="relative h-[118px] overflow-hidden sm:h-[210px]">
-            <Image
-              src={`${ASSET_BASE}/01_header/ilustrasi_ruang_tamu.webp`}
-              alt=""
-              fill
-              priority
-              sizes="(min-width: 640px) 300px, 132px"
-              className="object-contain object-bottom"
-            />
-          </div>
+          <Image
+            src={`${ASSET_BASE}/01_header/ilustrasi_ruang_tamu.webp`}
+            alt=""
+            width={360}
+            height={220}
+            priority
+            sizes="(min-width: 640px) 360px, 190px"
+            className="absolute bottom-0 right-0 h-auto w-[52%] max-w-[190px] object-contain sm:max-w-[360px]"
+          />
         </section>
 
-        <section className="mt-5 overflow-hidden rounded-[26px] bg-[linear-gradient(135deg,#056241_0%,#11915f_56%,#70c784_100%)] p-5 text-white shadow-[0_22px_54px_rgba(5,98,65,0.23)] sm:p-7">
-          <div className="flex items-start justify-between gap-4">
-            <div className="flex min-w-0 gap-4">
-              <span className="grid h-14 w-14 shrink-0 place-items-center rounded-[18px] bg-emerald-950/25">
+        <section className="mt-5 overflow-hidden rounded-[26px] bg-[linear-gradient(135deg,#056241_0%,#11915f_56%,#70c784_100%)] p-4 text-white shadow-[0_22px_54px_rgba(5,98,65,0.23)] sm:p-7">
+          <div className="flex min-w-0 items-start gap-3 sm:items-center sm:justify-between sm:gap-4">
+            <div className="flex min-w-0 flex-1 gap-3 sm:gap-4">
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-[16px] bg-emerald-950/25 sm:h-14 sm:w-14 sm:rounded-[18px]">
                 <Image
                   src={`${ASSET_BASE}/02_saldo_transparan/saldo_icon_wallet_transparan.webp`}
                   alt=""
                   width={44}
                   height={44}
-                  className="h-10 w-10 object-contain"
+                  className="h-9 w-9 object-contain sm:h-10 sm:w-10"
                 />
               </span>
-              <div className="min-w-0">
+              <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2 text-sm font-black text-white/90">
                   Saldo Utama <Eye className="h-4 w-4" />
                 </div>
-                <div className="mt-2 text-[38px] font-black leading-none sm:text-6xl">Rp 250.000</div>
+                <div className="mt-2 whitespace-nowrap text-[clamp(2rem,10vw,3.75rem)] font-black leading-none tracking-normal">
+                  Rp 250.000
+                </div>
               </div>
             </div>
             <Link
