@@ -6,15 +6,10 @@ import {
   Bell,
   CheckCircle2,
   Eye,
-  FileText,
-  Grid3X3,
   Plus,
   ReceiptText,
   Send,
   ShieldCheck,
-  Smartphone,
-  WalletCards,
-  Wifi,
   Zap,
 } from "lucide-react";
 
@@ -112,14 +107,14 @@ function ActionCard({
     <Link
       href={href}
       prefetch={false}
-      className="group flex min-w-0 items-center gap-3 rounded-[18px] border border-emerald-900/8 bg-white/90 p-3 shadow-[0_12px_34px_rgba(6,78,59,0.08)] transition hover:-translate-y-0.5 hover:border-emerald-600/20 hover:bg-white focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-emerald-300/60"
+      className="group flex min-w-0 flex-col items-center gap-2 rounded-[18px] border border-emerald-900/8 bg-white/92 p-3 text-center shadow-[0_12px_34px_rgba(6,78,59,0.08)] transition hover:-translate-y-0.5 hover:border-emerald-600/20 hover:bg-white focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-emerald-300/60 sm:flex-row sm:text-left"
     >
-      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-[16px] bg-emerald-50 text-emerald-700 ring-1 ring-emerald-700/8">
+      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-[15px] bg-emerald-50 text-emerald-700 ring-1 ring-emerald-700/8 sm:h-11 sm:w-11">
         {icon}
       </span>
       <span className="min-w-0">
-        <span className="block truncate text-sm font-extrabold text-[#083d34]">{title}</span>
-        <span className="mt-0.5 block truncate text-xs font-medium text-[#648079]">{subtitle}</span>
+        <span className="block text-xs font-extrabold leading-tight text-[#083d34] sm:truncate sm:text-sm">{title}</span>
+        <span className="mt-0.5 block text-[10px] font-medium leading-tight text-[#648079] sm:truncate sm:text-xs">{subtitle}</span>
       </span>
     </Link>
   );
@@ -181,27 +176,27 @@ export function SakuSiapHomeExperience({
           </div>
         </header>
 
-        <section className="mt-8 grid gap-5 lg:grid-cols-[1.08fr_0.92fr] lg:items-end">
+        <section className="mt-7 grid grid-cols-[minmax(0,1fr)_126px] items-center gap-3 sm:grid-cols-[minmax(0,1fr)_220px] sm:gap-5 lg:grid-cols-[1.08fr_0.92fr] lg:items-end">
           <div className="min-w-0">
-            <p className="text-sm font-bold text-emerald-700">Halo, {userName || "Selamat Datang"}!</p>
-            <h1 className="mt-2 max-w-2xl text-[clamp(2rem,5vw,4.45rem)] font-black leading-[0.95] text-[#073d33]">
-              Kebutuhan harian jadi lebih ringan.
+            <p className="text-xs font-black text-emerald-700 sm:text-sm">Halo, {userName || "Selamat Datang"}!</p>
+            <h1 className="mt-2 max-w-2xl text-[28px] font-black leading-[1.03] text-[#073d33] sm:text-5xl sm:leading-[0.98] lg:text-6xl">
+              Kebutuhan harian lebih mudah.
             </h1>
-            <p className="mt-4 max-w-xl text-base font-medium leading-7 text-[#57756d] sm:text-lg">
+            <p className="mt-3 max-w-xl text-sm font-semibold leading-6 text-[#57756d] sm:mt-4 sm:text-lg sm:leading-7">
               Isi pulsa, bayar tagihan, top up e-wallet, dan cek transaksi dalam satu tempat yang bersih dan cepat.
             </p>
           </div>
 
-          <div className="relative min-h-[180px] overflow-hidden rounded-[28px] bg-[#f8fffb] shadow-[0_20px_60px_rgba(6,78,59,0.10)] ring-1 ring-emerald-900/8 sm:min-h-[230px] lg:min-h-[280px]">
+          <div className="relative h-[142px] overflow-hidden rounded-[24px] bg-[#f8fffb] shadow-[0_16px_42px_rgba(6,78,59,0.10)] ring-1 ring-emerald-900/8 sm:h-[230px] sm:rounded-[28px] lg:h-[280px]">
             <Image
               src={`${ASSET_BASE}/01_header/ilustrasi_ruang_tamu.webp`}
               alt="Ilustrasi ruang keluarga SakuSiap"
               fill
               sizes="(min-width: 1024px) 44vw, 100vw"
-              className="object-contain object-bottom p-3 sm:p-4"
+              className="object-contain object-bottom p-2 sm:p-4"
               priority
             />
-            <div className="absolute left-5 top-5 rounded-full bg-white/86 px-3 py-1.5 text-xs font-black text-emerald-800 shadow-sm">
+            <div className="absolute left-3 top-3 max-w-[92px] rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-black leading-tight text-emerald-800 shadow-sm sm:left-5 sm:top-5 sm:max-w-none sm:text-xs">
               Hidup lebih siap
             </div>
           </div>
