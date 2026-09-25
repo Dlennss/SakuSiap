@@ -10,8 +10,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: deploy-main
-  cancel-in-progress: false
+  group: deploy-main-v2
+  cancel-in-progress: true
 
 jobs:
   deploy:
