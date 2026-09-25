@@ -16,7 +16,7 @@ concurrency:
 jobs:
   deploy:
     name: Build and Deploy to Server
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-24.04
     if: github.ref == 'refs/heads/main'
 
     env:
