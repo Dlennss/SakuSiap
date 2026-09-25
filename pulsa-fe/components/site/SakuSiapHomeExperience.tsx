@@ -88,56 +88,56 @@ export function SakuSiapHomeExperience({
         }}
       />
 
-      <div className="mx-auto min-h-svh w-full max-w-[945px] bg-[#edf8f3] px-4 pb-[96px] pt-4 sm:px-8 sm:pb-32">
-        <header className="flex items-center justify-between gap-3">
-          <Link href="/" prefetch={false} className="flex min-w-0 items-center gap-3">
+      <div className="mx-auto min-h-svh w-full max-w-[945px] bg-[#edf8f3] px-4 pb-[96px] pt-4 md:px-8 md:pb-32">
+        <header className="flex items-center justify-between gap-2">
+          <Link href="/" prefetch={false} className="flex min-w-0 items-center gap-2.5">
             <Image
               src={`${ASSET_BASE}/01_header/logo_symbol.webp`}
               alt=""
               width={56}
               height={56}
               priority
-              className="h-11 w-11 shrink-0 rounded-[14px] shadow-[0_12px_24px_rgba(5,91,67,0.18)] sm:h-14 sm:w-14"
+              className="h-10 w-10 shrink-0 rounded-[13px] shadow-[0_10px_20px_rgba(5,91,67,0.16)] md:h-14 md:w-14"
             />
             <span className="min-w-0">
-              <span className="block truncate text-2xl font-black leading-none text-[#063d34] sm:text-4xl">
+              <span className="block truncate text-xl font-black leading-none text-[#063d34] md:text-4xl">
                 SakuSiap
               </span>
-              <span className="mt-1 block truncate text-xs font-bold text-[#0a7a55] sm:text-base">
+              <span className="mt-1 block truncate text-xs font-bold text-[#0a7a55] md:text-base">
                 Siap sehari-hari
               </span>
             </span>
           </Link>
 
-          <div className="flex shrink-0 items-center gap-2">
+          <div className="flex shrink-0 items-center gap-1.5 md:gap-2">
             <button
               type="button"
               aria-label="Notifikasi"
-              className="relative grid h-10 w-10 place-items-center rounded-full bg-white text-[#073d33] shadow-sm ring-1 ring-emerald-900/10 sm:h-12 sm:w-12"
+              className="relative grid h-9 w-9 place-items-center rounded-full bg-white text-[#073d33] shadow-sm ring-1 ring-emerald-900/10 md:h-12 md:w-12"
             >
-              <Bell className="h-5 w-5" />
-              <span className="absolute right-2 top-2 h-2.5 w-2.5 rounded-full bg-[#ff7048] ring-2 ring-white" />
+              <Bell className="h-[18px] w-[18px] md:h-5 md:w-5" />
+              <span className="absolute right-1.5 top-1.5 h-2.5 w-2.5 rounded-full bg-[#ff7048] ring-2 ring-white md:right-2 md:top-2" />
             </button>
             <Link
               href={links.account}
               prefetch={false}
               aria-label="Akun"
-              className="grid h-10 w-10 place-items-center rounded-full bg-[#caf2d8] text-[#078153] shadow-sm ring-1 ring-emerald-900/10 sm:h-12 sm:w-12"
+              className="grid h-9 w-9 place-items-center rounded-full bg-[#caf2d8] text-[#078153] shadow-sm ring-1 ring-emerald-900/10 md:h-12 md:w-12"
             >
-              <ShieldCheck className="h-5 w-5 fill-[#078153]/10" />
+              <ShieldCheck className="h-[18px] w-[18px] fill-[#078153]/10 md:h-5 md:w-5" />
             </Link>
           </div>
         </header>
 
-        <section className="relative mt-6 min-h-[152px] overflow-hidden rounded-[24px] bg-[#f7fffb] p-5 shadow-[0_14px_38px_rgba(6,78,59,0.08)] ring-1 ring-emerald-900/8 sm:min-h-[230px] sm:p-7">
-          <div className="relative z-10 max-w-[58%] min-w-0 sm:max-w-xl">
-            <p className="text-sm font-black text-[#05734d] sm:text-lg">
+        <section className="relative mt-5 min-h-[136px] overflow-hidden rounded-[22px] bg-[#f7fffb] p-4 shadow-[0_14px_38px_rgba(6,78,59,0.08)] ring-1 ring-emerald-900/8 md:min-h-[230px] md:rounded-[24px] md:p-7">
+          <div className="relative z-10 max-w-[61%] min-w-0 md:max-w-xl">
+            <p className="text-xs font-black text-[#05734d] md:text-lg">
               Halo, {userName || "Selamat Datang"}!
             </p>
-            <h1 className="mt-2 text-[24px] font-black leading-[1.12] text-[#073d33] sm:text-5xl">
+            <h1 className="mt-2 text-[22px] font-black leading-[1.12] text-[#073d33] md:text-5xl">
               Semua siap.
             </h1>
-            <p className="mt-3 max-w-md text-sm font-semibold leading-6 text-[#56746d] sm:text-lg sm:leading-7">
+            <p className="mt-2 max-w-md text-xs font-semibold leading-5 text-[#56746d] md:mt-3 md:text-lg md:leading-7">
               Pulsa, tagihan, saldo.
             </p>
           </div>
@@ -148,28 +148,28 @@ export function SakuSiapHomeExperience({
             width={360}
             height={220}
             priority
-            sizes="(min-width: 640px) 360px, 190px"
-            className="absolute bottom-0 right-0 h-auto w-[52%] max-w-[190px] object-contain sm:max-w-[360px]"
+            sizes="(min-width: 768px) 360px, 150px"
+            className="absolute bottom-0 right-0 h-auto w-[46%] max-w-[150px] object-contain md:max-w-[360px]"
           />
         </section>
 
-        <section className="mt-5 overflow-hidden rounded-[26px] bg-[linear-gradient(135deg,#056241_0%,#11915f_56%,#70c784_100%)] p-4 text-white shadow-[0_22px_54px_rgba(5,98,65,0.23)] sm:p-7">
-          <div className="flex min-w-0 items-start gap-3 sm:items-center sm:justify-between sm:gap-4">
-            <div className="flex min-w-0 flex-1 gap-3 sm:gap-4">
-              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-[16px] bg-emerald-950/25 sm:h-14 sm:w-14 sm:rounded-[18px]">
+        <section className="mt-5 overflow-hidden rounded-[24px] bg-[linear-gradient(135deg,#056241_0%,#11915f_56%,#70c784_100%)] p-4 text-white shadow-[0_22px_54px_rgba(5,98,65,0.23)] md:rounded-[26px] md:p-7">
+          <div className="flex min-w-0 items-start gap-3 md:items-center md:justify-between md:gap-4">
+            <div className="flex min-w-0 flex-1 gap-3 md:gap-4">
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-[15px] bg-emerald-950/25 md:h-14 md:w-14 md:rounded-[18px]">
                 <Image
                   src={`${ASSET_BASE}/02_saldo_transparan/saldo_icon_wallet_transparan.webp`}
                   alt=""
                   width={44}
                   height={44}
-                  className="h-9 w-9 object-contain sm:h-10 sm:w-10"
+                  className="h-8 w-8 object-contain md:h-10 md:w-10"
                 />
               </span>
               <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2 text-sm font-black text-white/90">
-                  Saldo Utama <Eye className="h-4 w-4" />
+                <div className="flex items-center gap-2 text-xs font-black text-white/90 md:text-sm">
+                  Saldo Utama <Eye className="h-3.5 w-3.5 md:h-4 md:w-4" />
                 </div>
-                <div className="mt-2 whitespace-nowrap text-[clamp(2rem,10vw,3.75rem)] font-black leading-none tracking-normal">
+                <div className="mt-2 whitespace-nowrap text-[clamp(1.8rem,8.5vw,2.75rem)] font-black leading-none tracking-normal md:text-6xl">
                   Rp 250.000
                 </div>
               </div>
@@ -177,7 +177,7 @@ export function SakuSiapHomeExperience({
             <Link
               href={links.topup}
               prefetch={false}
-              className="hidden shrink-0 items-center gap-2 rounded-[18px] bg-white px-5 py-3 text-sm font-black text-[#076342] shadow-[0_12px_26px_rgba(0,0,0,0.13)] sm:flex"
+              className="hidden shrink-0 items-center gap-2 rounded-[18px] bg-white px-5 py-3 text-sm font-black text-[#076342] shadow-[0_12px_26px_rgba(0,0,0,0.13)] md:flex"
             >
               <Plus className="h-4 w-4" /> Isi Saldo
             </Link>
@@ -185,7 +185,7 @@ export function SakuSiapHomeExperience({
           <Link
             href={links.topup}
             prefetch={false}
-            className="mt-5 flex items-center justify-center gap-2 rounded-[18px] bg-white px-5 py-3 text-sm font-black text-[#076342] shadow-[0_12px_26px_rgba(0,0,0,0.10)] sm:hidden"
+            className="mt-4 flex items-center justify-center gap-2 rounded-[18px] bg-white px-5 py-3 text-sm font-black text-[#076342] shadow-[0_12px_26px_rgba(0,0,0,0.10)] md:hidden"
           >
             <Plus className="h-4 w-4" /> Isi Saldo
           </Link>
