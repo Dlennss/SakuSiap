@@ -1,25 +1,15 @@
-import { Suspense } from "react";
+import Link from "next/link";
 import Script from "next/script";
-import { getServerSession } from "next-auth";
 import type { Metadata } from "next";
-import { authOptions } from "@/lib/nextauth";
 import { getCategories } from "@/lib/api.products";
-import type { UserCategoryItem, UserSession } from "@/components/user/types";
-import { UserFavoriteTransactions, UserMonthlyBills, UserRecentActivity } from "@/components/user/UserMainSections";
+import type { UserCategoryItem } from "@/components/user/types";
 import { GuestBottomNav } from "@/components/guest/GuestBottomNav";
-import { GuestCategoryGrid } from "@/components/guest/GuestCategoryGrid";
-import { GuestAdsSection } from "@/components/guest/GuestAdsSection";
-import { GuestAdsCarouselSkeleton } from "@/components/guest/GuestAdsCarouselSkeleton";
 import { CANONICAL_SITE_URL } from "@/lib/seo-articles";
-
-type SessionShape = {
-  user?: UserSession;
-  backendToken?: string;
-};
 
 const homeTitle = "SakuSiap | Pulsa, Paket Data, E-Wallet, Token Listrik, Game & PPOB";
 const homeDescription =
   "SakuSiap melayani isi pulsa, paket data, top up e-wallet, token listrik, top up game, dan pembayaran PPOB dengan alur cepat untuk pelanggan, member, dan agen.";
+const ASSET_BASE = "/sakusiap-assets";
 
 export const metadata: Metadata = {
   title: homeTitle,
@@ -59,8 +49,39 @@ export const metadata: Metadata = {
   },
 };
 
+function SectionImage({ src, alt }: { src: string; alt: string }) {
+  return (
+    <img
+      src={`${ASSET_BASE}${src}`}
+      alt={alt}
+      className="block h-auto w-full select-none"
+      draggable={false}
+    />
+  );
+}
+
+function OverlayLink({
+  href,
+  label,
+  className,
+}: {
+  href: string;
+  label: string;
+  className: string;
+}) {
+  return (
+    <Link
+      href={href}
+      prefetch={false}
+      aria-label={label}
+      className={`absolute rounded-2xl outline-none focus-visible:ring-4 focus-visible:ring-emerald-300/70 ${className}`}
+    >
+      <span className="sr-only">{label}</span>
+    </Link>
+  );
+}
+
 export default async function GuestHomePage() {
-  const session = (await getServerSession(authOptions)) as SessionShape | null;
   const categories = (await getCategories()) as UserCategoryItem[];
   const activeCategories = categories.filter((item) => item.aktif);
 
@@ -136,7 +157,12 @@ export default async function GuestHomePage() {
   };
 
   return (
-    <main className="brand-retail-main bg-[#f3f8f5]">
+    <main className="sakusiap-home-screen min-h-svh bg-[#edf8f3] text-[#073d33]">
+      <style
+        dangerouslySetInnerHTML={{
+          __html: ".brand-app-header{display:none!important}",
+        }}
+      />
       <Script id="homepage-website-jsonld" type="application/ld+json">
         {JSON.stringify(websiteJsonLd)}
       </Script>
@@ -149,17 +175,45 @@ export default async function GuestHomePage() {
       <Script id="homepage-faq-jsonld" type="application/ld+json">
         {JSON.stringify(faqJsonLd)}
       </Script>
-      <div className="space-y-4 px-4 pt-4">
-        <GuestCategoryGrid items={categories} />
-        <Suspense fallback={<GuestAdsCarouselSkeleton />}>
-          <GuestAdsSection />
-        </Suspense>
-        <UserRecentActivity href="/kategori" />
-        <UserFavoriteTransactions href="/kategori" />
-        <UserMonthlyBills href="/listrik/tagihan" />
+
+      <div className="mx-auto w-full max-w-[945px] overflow-hidden bg-[#edf8f3]">
+        <div className="bg-[#f7fffb]">
+          <SectionImage src="/00_sections/header_full.png" alt="SakuSiap siap untuk sehari-hari" />
+        </div>
+
+        <section className="relative">
+          <SectionImage src="/00_sections/saldo_dan_aksi_full.png" alt="Saldo utama dan menu aksi cepat" />
+          <OverlayLink href="/login" label="Isi saldo" className="right-[8%] top-[22%] h-[22%] w-[24%]" />
+          <OverlayLink href="/login" label="Top up saldo" className="left-[3%] bottom-[4%] h-[29%] w-[29%]" />
+          <OverlayLink href="/login" label="Transfer saldo" className="left-[34%] bottom-[4%] h-[29%] w-[29%]" />
+          <OverlayLink href="/transaksi" label="Riwayat transaksi" className="right-[3%] bottom-[4%] h-[29%] w-[29%]" />
+        </section>
+
+        <Link href="/listrik/tagihan" prefetch={false} className="block focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-emerald-300/70">
+          <SectionImage src="/00_sections/banner_utama_full.png" alt="Bayar listrik dan tagihan jadi lebih mudah" />
+        </Link>
+
+        <section className="relative">
+          <SectionImage src="/00_sections/layanan_favorit_full.png" alt="Layanan favorit SakuSiap" />
+          <OverlayLink href="/kategori" label="Lihat semua layanan" className="right-[5%] top-[10%] h-[20%] w-[22%]" />
+          <OverlayLink href="/pulsa-data" label="Pulsa dan data" className="left-[5%] bottom-[7%] h-[56%] w-[12%]" />
+          <OverlayLink href="/listrik/token" label="Token listrik" className="left-[21%] bottom-[7%] h-[56%] w-[12%]" />
+          <OverlayLink href="/ewallet" label="E-Wallet" className="left-[37%] bottom-[7%] h-[56%] w-[12%]" />
+          <OverlayLink href="/listrik/tagihan" label="Tagihan" className="left-[53%] bottom-[7%] h-[56%] w-[12%]" />
+          <OverlayLink href="/internet-pascabayar" label="Paket internet" className="left-[69%] bottom-[7%] h-[56%] w-[12%]" />
+          <OverlayLink href="/kategori" label="Lainnya" className="right-[3%] bottom-[7%] h-[56%] w-[12%]" />
+        </section>
+
+        <Link href="/transaksi" prefetch={false} className="block focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-emerald-300/70">
+          <SectionImage src="/00_sections/aktivitas_terakhir_full.png" alt="Aktivitas terakhir" />
+        </Link>
+
+        <Link href="/listrik/tagihan" prefetch={false} className="block focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-emerald-300/70">
+          <SectionImage src="/00_sections/promo_bawah_full.png" alt="Promo mingguan cashback hingga Rp 25.000" />
+        </Link>
       </div>
 
-      <GuestBottomNav isLoggedIn={!!session?.backendToken} />
+      <GuestBottomNav isLoggedIn={false} />
     </main>
   );
 }
