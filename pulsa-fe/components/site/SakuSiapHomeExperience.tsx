@@ -176,28 +176,28 @@ export function SakuSiapHomeExperience({
           </div>
         </header>
 
-        <section className="mt-7 grid grid-cols-[minmax(0,1fr)_126px] items-center gap-3 sm:grid-cols-[minmax(0,1fr)_220px] sm:gap-5 lg:grid-cols-[1.08fr_0.92fr] lg:items-end">
-          <div className="min-w-0">
+        <section className="relative mt-7 min-h-[156px] overflow-hidden rounded-[28px] bg-[#f7fffb]/72 p-5 shadow-[0_18px_48px_rgba(6,78,59,0.08)] ring-1 ring-emerald-900/8 sm:grid sm:min-h-[230px] sm:grid-cols-[1fr_260px] sm:items-center sm:gap-6 sm:p-6 lg:min-h-[280px] lg:grid-cols-[1.08fr_0.92fr]">
+          <div className="relative z-10 max-w-[66%] min-w-0 sm:max-w-xl">
             <p className="text-xs font-black text-emerald-700 sm:text-sm">Halo, {userName || "Selamat Datang"}!</p>
-            <h1 className="mt-2 max-w-2xl text-[28px] font-black leading-[1.03] text-[#073d33] sm:text-5xl sm:leading-[0.98] lg:text-6xl">
-              Kebutuhan harian lebih mudah.
+            <h1 className="mt-2 text-[25px] font-black leading-tight text-[#073d33] sm:text-5xl sm:leading-[0.98] lg:text-6xl">
+              Semua kebutuhan rumah tangga, lebih mudah.
             </h1>
-            <p className="mt-3 max-w-xl text-sm font-semibold leading-6 text-[#57756d] sm:mt-4 sm:text-lg sm:leading-7">
-              Isi pulsa, bayar tagihan, top up e-wallet, dan cek transaksi dalam satu tempat yang bersih dan cepat.
+            <p className="mt-2 text-sm font-semibold leading-6 text-[#57756d] sm:mt-4 sm:text-lg sm:leading-7">
+              SakuSiap bantu transaksi harianmu lebih cepat dan rapi.
             </p>
           </div>
 
-          <div className="relative h-[142px] overflow-hidden rounded-[24px] bg-[#f8fffb] shadow-[0_16px_42px_rgba(6,78,59,0.10)] ring-1 ring-emerald-900/8 sm:h-[230px] sm:rounded-[28px] lg:h-[280px]">
+          <div className="absolute bottom-0 right-0 h-[150px] w-[45%] max-w-[170px] sm:relative sm:h-[230px] sm:w-full sm:max-w-none lg:h-[280px]">
             <Image
               src={`${ASSET_BASE}/01_header/ilustrasi_ruang_tamu.webp`}
               alt="Ilustrasi ruang keluarga SakuSiap"
               fill
               sizes="(min-width: 1024px) 44vw, 100vw"
-              className="object-contain object-bottom p-2 sm:p-4"
+              className="object-contain object-bottom"
               priority
             />
-            <div className="absolute left-3 top-3 max-w-[92px] rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-black leading-tight text-emerald-800 shadow-sm sm:left-5 sm:top-5 sm:max-w-none sm:text-xs">
-              Hidup lebih siap
+            <div className="absolute right-3 top-2 max-w-[88px] rounded-full bg-white/92 px-3 py-1.5 text-[10px] font-black leading-tight text-emerald-800 shadow-sm sm:left-5 sm:right-auto sm:top-5 sm:max-w-none sm:text-xs">
+              Hidup lebih ringan
             </div>
           </div>
         </section>
