@@ -62,15 +62,9 @@ function QuickAction({
   label: string;
 }) {
   return (
-    <Link
-      href={href}
-      prefetch={false}
-      className="flex min-w-0 items-center justify-center gap-2 rounded-[18px] bg-white px-3 py-3 text-sm font-black text-[#073d33] shadow-[0_12px_28px_rgba(6,78,59,0.08)] ring-1 ring-emerald-900/8 transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-emerald-300/60"
-    >
-      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#e2f7eb] text-[#05734d]">
-        {icon}
-      </span>
-      <span className="truncate">{label}</span>
+    <Link href={href} prefetch={false} className="ss-action">
+      <span className="ss-action-icon">{icon}</span>
+      <span>{label}</span>
     </Link>
   );
 }
@@ -81,263 +75,148 @@ export function SakuSiapHomeExperience({
   userName,
 }: SakuSiapHomeExperienceProps) {
   return (
-    <main className="sakusiap-home-screen min-h-svh bg-[#edf8f3] text-[#073d33]">
+    <main className="sakusiap-home-screen ss-page">
       <style
         dangerouslySetInnerHTML={{
-          __html: ".brand-app-header{display:none!important}",
+          __html: `
+            .brand-app-header{display:none!important}
+            .ss-page{min-height:100svh;background:#edf8f3;color:#073d33}
+            .ss-shell{width:min(100%,1180px);margin:0 auto;padding:24px 24px 120px}
+            .ss-header{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:18px}
+            .ss-logo{display:flex;align-items:center;gap:14px;min-width:0}
+            .ss-logo img{width:56px;height:56px;border-radius:16px;box-shadow:0 12px 24px rgba(5,91,67,.16)}
+            .ss-name{display:block;font-size:34px;line-height:.95;font-weight:900;color:#063d34;white-space:nowrap}
+            .ss-tagline{display:block;margin-top:6px;font-size:15px;font-weight:800;color:#0a7a55;white-space:nowrap}
+            .ss-header-actions{display:flex;align-items:center;gap:12px}
+            .ss-round{position:relative;display:grid;width:48px;height:48px;place-items:center;border-radius:999px;background:#fff;color:#073d33;box-shadow:0 8px 20px rgba(6,78,59,.08);border:1px solid rgba(7,61,51,.1)}
+            .ss-round-green{background:#caf2d8;color:#078153}
+            .ss-dot{position:absolute;right:9px;top:8px;width:10px;height:10px;border-radius:999px;background:#ff7048;border:2px solid #fff}
+            .ss-top{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:24px;margin-top:28px;align-items:stretch}
+            .ss-card{border-radius:28px;border:1px solid rgba(7,61,51,.08);box-shadow:0 18px 48px rgba(6,78,59,.08)}
+            .ss-hero{position:relative;overflow:hidden;min-height:300px;background:#f7fffb;padding:34px}
+            .ss-hero-copy{position:relative;z-index:1;max-width:430px}
+            .ss-eyebrow{font-size:17px;font-weight:900;color:#05734d}
+            .ss-title{margin-top:12px;font-size:52px;line-height:1;font-weight:900;color:#073d33}
+            .ss-subtitle{margin-top:18px;font-size:20px;line-height:1.55;font-weight:700;color:#56746d}
+            .ss-hero-img{position:absolute;right:0;bottom:0;width:42%;max-width:360px;height:auto}
+            .ss-right{display:grid;gap:14px;align-content:start}
+            .ss-balance{overflow:hidden;border-radius:28px;background:linear-gradient(135deg,#056241 0%,#11915f 56%,#70c784 100%);padding:26px;color:#fff;box-shadow:0 22px 54px rgba(5,98,65,.22)}
+            .ss-balance-main{display:flex;gap:16px;align-items:flex-start;min-width:0}
+            .ss-wallet{display:grid;width:56px;height:56px;flex:0 0 auto;place-items:center;border-radius:18px;background:rgba(2,44,34,.25)}
+            .ss-wallet img{width:40px;height:40px;object-fit:contain}
+            .ss-balance-meta{min-width:0;flex:1}
+            .ss-balance-label{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:900;color:rgba(255,255,255,.92)}
+            .ss-amount{margin-top:12px;white-space:nowrap;font-size:48px;line-height:1;font-weight:900;letter-spacing:0}
+            .ss-topup{display:flex;margin-top:22px;align-items:center;justify-content:center;gap:8px;border-radius:18px;background:#fff;padding:13px 18px;font-size:14px;font-weight:900;color:#076342;box-shadow:0 12px 26px rgba(0,0,0,.13)}
+            .ss-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+            .ss-action{display:flex;min-width:0;align-items:center;justify-content:center;gap:8px;border-radius:18px;background:#fff;padding:13px 12px;font-size:14px;font-weight:900;color:#073d33;box-shadow:0 12px 28px rgba(6,78,59,.08);border:1px solid rgba(7,61,51,.08)}
+            .ss-action-icon{display:grid;width:32px;height:32px;flex:0 0 auto;place-items:center;border-radius:999px;background:#e2f7eb;color:#05734d}
+            .ss-section{margin-top:24px;border-radius:28px;background:#fff;padding:24px;box-shadow:0 14px 42px rgba(6,78,59,.08);border:1px solid rgba(7,61,51,.08)}
+            .ss-section-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}
+            .ss-section-title{font-size:24px;font-weight:900;color:#073d33}
+            .ss-all{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:900;color:#3d6d61}
+            .ss-services{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px}
+            .ss-service{display:flex;flex-direction:column;align-items:center;gap:12px;border-radius:20px;background:#f4fbf7;padding:16px;text-align:center;border:1px solid rgba(7,61,51,.05)}
+            .ss-service-icon{display:grid;width:64px;height:64px;place-items:center;border-radius:18px;background:#fff;box-shadow:0 8px 18px rgba(6,78,59,.05)}
+            .ss-service-icon img{width:40px;height:40px;object-fit:contain}
+            .ss-service-label{font-size:14px;font-weight:900;color:#143a34}
+            .ss-lower{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:24px;margin-top:24px}
+            .ss-activity-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:16px;align-items:center;padding:16px 0;border-top:1px solid rgba(7,61,51,.08)}
+            .ss-activity-row:first-child{border-top:0}
+            .ss-activity-icon{display:grid;width:48px;height:48px;place-items:center;border-radius:16px;background:#fff6d9}
+            .ss-activity-icon img{width:28px;height:28px;object-fit:contain}
+            .ss-activity-name{font-size:16px;font-weight:900;color:#102b28;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+            .ss-activity-date{margin-top:3px;font-size:12px;font-weight:800;color:#6f8491}
+            .ss-activity-amount{font-size:16px;font-weight:900;color:#102b28;white-space:nowrap}
+            .ss-status{display:inline-flex;align-items:center;gap:4px;border-radius:999px;background:#ecfdf3;padding:4px 10px;font-size:12px;font-weight:900;color:#078153}
+            .ss-side{display:grid;gap:24px}
+            .ss-bill,.ss-promo{position:relative;min-height:190px;overflow:hidden;border-radius:28px;padding:24px;box-shadow:0 14px 42px rgba(6,78,59,.08)}
+            .ss-bill{border:1px solid rgba(251,191,36,.55);background:#fff6df}
+            .ss-promo{background:linear-gradient(135deg,#075b3e 0%,#0c7a53 58%,#054b36 100%);color:#fff}
+            .ss-side-copy{position:relative;z-index:1;max-width:235px}
+            .ss-side-title{font-size:30px;line-height:1.08;font-weight:900;color:#073d33}
+            .ss-promo .ss-side-title{color:#fff}
+            .ss-side-btn{display:inline-flex;margin-top:20px;align-items:center;gap:8px;border-radius:999px;background:#075b3e;padding:12px 18px;font-size:14px;font-weight:900;color:#fff}
+            .ss-promo .ss-side-btn{background:#fff;color:#073d33}
+            .ss-bill-img{position:absolute;right:0;bottom:0;width:55%;height:auto}
+            .ss-promo-img{position:absolute;right:0;bottom:-32px;width:170px;height:170px;object-fit:contain}
+            .ss-mobile-nav{display:none}
+            @media (max-width: 1199px){
+              .ss-shell{width:min(100%,945px);padding:16px 16px 96px}
+              .ss-top,.ss-lower{grid-template-columns:1fr}
+              .ss-right{gap:12px}
+              .ss-hero{min-height:190px;padding:22px}
+              .ss-title{font-size:42px}
+              .ss-subtitle{font-size:16px;line-height:1.45}
+              .ss-hero-img{width:46%;max-width:260px}
+              .ss-services{grid-template-columns:repeat(6,minmax(0,1fr))}
+              .ss-side{grid-template-columns:1fr 1fr}
+              .ss-mobile-nav{display:block}
+            }
+            @media (max-width: 720px){
+              .ss-shell{padding:16px 16px 96px}
+              .ss-logo{gap:10px}
+              .ss-logo img{width:40px;height:40px;border-radius:13px}
+              .ss-name{max-width:150px;overflow:hidden;text-overflow:ellipsis;font-size:clamp(20px,6.4vw,32px)}
+              .ss-tagline{max-width:150px;overflow:hidden;text-overflow:ellipsis;font-size:12px}
+              .ss-round{width:36px;height:36px}
+              .ss-header-actions{gap:6px}
+              .ss-top{gap:20px;margin-top:20px}
+              .ss-hero{min-height:136px;border-radius:22px;padding:16px}
+              .ss-hero-copy{max-width:61%}
+              .ss-eyebrow{font-size:12px}
+              .ss-title{margin-top:8px;font-size:22px;line-height:1.12}
+              .ss-subtitle{margin-top:8px;font-size:12px;line-height:1.55}
+              .ss-hero-img{width:46%;max-width:150px}
+              .ss-balance{border-radius:24px;padding:16px}
+              .ss-wallet{width:44px;height:44px;border-radius:15px}
+              .ss-wallet img{width:32px;height:32px}
+              .ss-balance-label{font-size:12px}
+              .ss-amount{font-size:clamp(29px,8.5vw,44px)}
+              .ss-topup{margin-top:16px}
+              .ss-section{margin-top:20px;border-radius:24px;padding:16px}
+              .ss-section-title{font-size:18px}
+              .ss-services{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+              .ss-service{gap:8px;border-radius:18px;padding:12px}
+              .ss-service-icon{width:56px;height:56px;border-radius:16px}
+              .ss-service-icon img{width:36px;height:36px}
+              .ss-service-label{font-size:12px}
+              .ss-activity-row{grid-template-columns:auto minmax(0,1fr) auto;gap:12px}
+              .ss-status{display:none}
+              .ss-side{grid-template-columns:1fr}
+              .ss-bill,.ss-promo{border-radius:24px}
+            }
+          `,
         }}
       />
 
-      <div className="mx-auto min-h-svh w-full max-w-[945px] bg-[#edf8f3] px-4 pb-[96px] pt-4 md:px-8 md:pb-32 xl:hidden">
-        <header className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
-          <Link href="/" prefetch={false} className="grid min-w-0 grid-cols-[auto_minmax(0,1fr)] items-center gap-2.5">
-            <Image
-              src={`${ASSET_BASE}/01_header/logo_symbol.webp`}
-              alt=""
-              width={56}
-              height={56}
-              priority
-              className="h-10 w-10 shrink-0 rounded-[13px] shadow-[0_10px_20px_rgba(5,91,67,0.16)] md:h-14 md:w-14"
-            />
-            <span className="min-w-0 overflow-hidden">
-              <span className="block max-w-[150px] truncate text-[clamp(1.25rem,6.4vw,2rem)] font-black leading-none text-[#063d34] md:max-w-none md:text-4xl">
-                SakuSiap
-              </span>
-              <span className="mt-1 block max-w-[150px] truncate text-xs font-bold text-[#0a7a55] md:max-w-none md:text-base">
-                Siap sehari-hari
-              </span>
+      <div className="ss-shell">
+        <header className="ss-header">
+          <Link href="/" prefetch={false} className="ss-logo">
+            <Image src={`${ASSET_BASE}/01_header/logo_symbol.webp`} alt="" width={56} height={56} priority />
+            <span>
+              <span className="ss-name">SakuSiap</span>
+              <span className="ss-tagline">Siap sehari-hari</span>
             </span>
           </Link>
 
-          <div className="flex shrink-0 items-center gap-1.5 md:gap-2">
-            <button
-              type="button"
-              aria-label="Notifikasi"
-              className="relative grid h-9 w-9 place-items-center rounded-full bg-white text-[#073d33] shadow-sm ring-1 ring-emerald-900/10 md:h-12 md:w-12"
-            >
-              <Bell className="h-[18px] w-[18px] md:h-5 md:w-5" />
-              <span className="absolute right-1.5 top-1.5 h-2.5 w-2.5 rounded-full bg-[#ff7048] ring-2 ring-white md:right-2 md:top-2" />
-            </button>
-            <Link
-              href={links.account}
-              prefetch={false}
-              aria-label="Akun"
-              className="grid h-9 w-9 place-items-center rounded-full bg-[#caf2d8] text-[#078153] shadow-sm ring-1 ring-emerald-900/10 md:h-12 md:w-12"
-            >
-              <ShieldCheck className="h-[18px] w-[18px] fill-[#078153]/10 md:h-5 md:w-5" />
-            </Link>
-          </div>
-        </header>
-
-        <section className="relative mt-5 min-h-[136px] overflow-hidden rounded-[22px] bg-[#f7fffb] p-4 shadow-[0_14px_38px_rgba(6,78,59,0.08)] ring-1 ring-emerald-900/8 md:min-h-[230px] md:rounded-[24px] md:p-7">
-          <div className="relative z-10 max-w-[61%] min-w-0 md:max-w-xl">
-            <p className="text-xs font-black text-[#05734d] md:text-lg">
-              Halo, {userName || "Selamat Datang"}!
-            </p>
-            <h1 className="mt-2 text-[22px] font-black leading-[1.12] text-[#073d33] md:text-5xl">
-              Semua siap.
-            </h1>
-            <p className="mt-2 max-w-md text-xs font-semibold leading-5 text-[#56746d] md:mt-3 md:text-lg md:leading-7">
-              Pulsa, tagihan, saldo.
-            </p>
-          </div>
-
-          <Image
-            src={`${ASSET_BASE}/01_header/ilustrasi_ruang_tamu.webp`}
-            alt=""
-            width={360}
-            height={220}
-            priority
-            sizes="(min-width: 768px) 360px, 150px"
-            className="absolute bottom-0 right-0 h-auto w-[46%] max-w-[150px] object-contain md:max-w-[360px]"
-          />
-        </section>
-
-        <section className="mt-5 overflow-hidden rounded-[24px] bg-[linear-gradient(135deg,#056241_0%,#11915f_56%,#70c784_100%)] p-4 text-white shadow-[0_22px_54px_rgba(5,98,65,0.23)] md:rounded-[26px] md:p-7">
-          <div className="flex min-w-0 items-start gap-3 md:items-center md:justify-between md:gap-4">
-            <div className="flex min-w-0 flex-1 gap-3 md:gap-4">
-              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-[15px] bg-emerald-950/25 md:h-14 md:w-14 md:rounded-[18px]">
-                <Image
-                  src={`${ASSET_BASE}/02_saldo_transparan/saldo_icon_wallet_transparan.webp`}
-                  alt=""
-                  width={44}
-                  height={44}
-                  className="h-8 w-8 object-contain md:h-10 md:w-10"
-                />
-              </span>
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2 text-xs font-black text-white/90 md:text-sm">
-                  Saldo Utama <Eye className="h-3.5 w-3.5 md:h-4 md:w-4" />
-                </div>
-                <div className="mt-2 whitespace-nowrap text-[clamp(1.8rem,8.5vw,2.75rem)] font-black leading-none tracking-normal md:text-6xl">
-                  Rp 250.000
-                </div>
-              </div>
-            </div>
-            <Link
-              href={links.topup}
-              prefetch={false}
-              className="hidden shrink-0 items-center gap-2 rounded-[18px] bg-white px-5 py-3 text-sm font-black text-[#076342] shadow-[0_12px_26px_rgba(0,0,0,0.13)] md:flex"
-            >
-              <Plus className="h-4 w-4" /> Isi Saldo
-            </Link>
-          </div>
-          <Link
-            href={links.topup}
-            prefetch={false}
-            className="mt-4 flex items-center justify-center gap-2 rounded-[18px] bg-white px-5 py-3 text-sm font-black text-[#076342] shadow-[0_12px_26px_rgba(0,0,0,0.10)] md:hidden"
-          >
-            <Plus className="h-4 w-4" /> Isi Saldo
-          </Link>
-        </section>
-
-        <section className="mt-3 grid grid-cols-3 gap-3">
-          <QuickAction href={links.topup} icon={<Plus className="h-4 w-4" />} label="Isi" />
-          <QuickAction href={links.transfer} icon={<Send className="h-4 w-4" />} label="Transfer" />
-          <QuickAction href={links.history} icon={<ReceiptText className="h-4 w-4" />} label="Riwayat" />
-        </section>
-
-        <Link
-          href={links.bill}
-          prefetch={false}
-          className="mt-5 grid min-h-[168px] overflow-hidden rounded-[24px] border border-amber-200/80 bg-[#fff6df] shadow-[0_14px_42px_rgba(86,60,18,0.09)] sm:grid-cols-[1fr_1.05fr]"
-        >
-          <div className="relative z-10 p-5 sm:p-7">
-            <h2 className="max-w-sm text-2xl font-black leading-tight text-[#073d33] sm:text-4xl">
-              Tagihan rumah. Cepat.
-            </h2>
-            <span className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#075b3e] px-5 py-3 text-sm font-black text-white">
-              Bayar <ArrowRight className="h-4 w-4" />
-            </span>
-          </div>
-          <div className="relative min-h-[128px] sm:min-h-[220px]">
-            <Image
-              src={`${ASSET_BASE}/03_banner_utama/banner_rumah_dan_tanaman.webp`}
-              alt=""
-              fill
-              sizes="(min-width: 640px) 430px, 100vw"
-              className="object-contain object-bottom"
-            />
-          </div>
-        </Link>
-
-        <section className="mt-5 rounded-[24px] bg-white p-4 shadow-[0_14px_42px_rgba(6,78,59,0.08)] ring-1 ring-emerald-900/8 sm:p-6">
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-lg font-black text-[#073d33] sm:text-2xl">Layanan</h2>
-            <Link href={links.allServices} prefetch={false} className="flex items-center gap-1 text-xs font-black text-[#3d6d61] sm:text-sm">
-              Semua <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-          <div className="grid grid-cols-3 gap-3 sm:grid-cols-6">
-            {services.map(([label, key, icon]) => (
-              <Link
-                key={label}
-                href={serviceHref(links, key)}
-                prefetch={false}
-                className="flex flex-col items-center gap-2 rounded-[18px] bg-[#f4fbf7] p-3 text-center ring-1 ring-emerald-900/5"
-              >
-                <span className="grid h-14 w-14 place-items-center rounded-[16px] bg-white shadow-sm">
-                  <Image src={`${ASSET_BASE}${icon}`} alt="" width={38} height={38} className="h-9 w-9 object-contain" />
-                </span>
-                <span className="text-xs font-black leading-tight text-[#143a34]">{label}</span>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        <section className="mt-5 rounded-[24px] bg-white p-4 shadow-[0_14px_42px_rgba(6,78,59,0.08)] ring-1 ring-emerald-900/8 sm:p-6">
-          <div className="mb-2 flex items-center justify-between">
-            <h2 className="text-lg font-black text-[#073d33] sm:text-2xl">Aktivitas</h2>
-            <Link href={links.history} prefetch={false} className="flex items-center gap-1 text-xs font-black text-[#3d6d61] sm:text-sm">
-              Semua <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-          <div className="divide-y divide-emerald-900/8">
-            {activities.map(([label, date, amount, icon]) => (
-              <div key={label} className="grid grid-cols-[auto_1fr_auto] items-center gap-3 py-3">
-                <span className="grid h-11 w-11 place-items-center rounded-[15px] bg-[#fff6d9]">
-                  <Image src={`${ASSET_BASE}${icon}`} alt="" width={28} height={28} className="h-7 w-7 object-contain" />
-                </span>
-                <div className="min-w-0">
-                  <p className="truncate text-sm font-black text-[#102b28] sm:text-base">{label}</p>
-                  <p className="text-xs font-bold text-[#6f8491]">{date}</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-sm font-black text-[#102b28] sm:text-base">{amount}</p>
-                  <span className="mt-1 inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-black text-emerald-700">
-                    <CheckCircle2 className="h-3 w-3 fill-emerald-600 text-white" /> OK
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <Link
-          href={links.bill}
-          prefetch={false}
-          className="relative mt-5 flex min-h-[120px] overflow-hidden rounded-[24px] bg-[linear-gradient(135deg,#075b3e_0%,#0c7a53_58%,#054b36_100%)] p-5 text-white shadow-[0_22px_54px_rgba(5,98,65,0.18)]"
-        >
-          <div className="relative z-10">
-            <span className="rounded-full bg-white/16 px-3 py-1 text-xs font-black">Promo</span>
-            <h2 className="mt-4 text-2xl font-black leading-tight">Cashback Rp 25.000</h2>
-            <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-black text-[#073d33]">
-              Cek <ArrowRight className="h-4 w-4" />
-            </span>
-          </div>
-          <Image
-            src={`${ASSET_BASE}/07_promo/promo_ilustrasi_hp.webp`}
-            alt=""
-            width={170}
-            height={170}
-            className="absolute -bottom-8 right-0 h-40 w-40 object-contain sm:h-52 sm:w-52"
-          />
-        </Link>
-      </div>
-
-      <div className="mx-auto hidden min-h-svh w-full max-w-6xl px-8 py-8 xl:block">
-        <header className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-6">
-          <Link href="/" prefetch={false} className="flex min-w-0 items-center gap-4">
-            <Image
-              src={`${ASSET_BASE}/01_header/logo_symbol.webp`}
-              alt=""
-              width={64}
-              height={64}
-              priority
-              className="h-14 w-14 shrink-0 rounded-[16px] shadow-[0_12px_24px_rgba(5,91,67,0.16)]"
-            />
-            <span className="min-w-0">
-              <span className="block text-4xl font-black leading-none text-[#063d34]">SakuSiap</span>
-              <span className="mt-1 block text-base font-bold text-[#0a7a55]">Siap sehari-hari</span>
-            </span>
-          </Link>
-
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              aria-label="Notifikasi"
-              className="relative grid h-12 w-12 place-items-center rounded-full bg-white text-[#073d33] shadow-sm ring-1 ring-emerald-900/10"
-            >
+          <div className="ss-header-actions">
+            <button type="button" aria-label="Notifikasi" className="ss-round">
               <Bell className="h-5 w-5" />
-              <span className="absolute right-2 top-2 h-2.5 w-2.5 rounded-full bg-[#ff7048] ring-2 ring-white" />
+              <span className="ss-dot" />
             </button>
-            <Link
-              href={links.account}
-              prefetch={false}
-              aria-label="Akun"
-              className="grid h-12 w-12 place-items-center rounded-full bg-[#caf2d8] text-[#078153] shadow-sm ring-1 ring-emerald-900/10"
-            >
+            <Link href={links.account} prefetch={false} aria-label="Akun" className="ss-round ss-round-green">
               <ShieldCheck className="h-5 w-5 fill-[#078153]/10" />
             </Link>
           </div>
         </header>
 
-        <section className="mt-8 grid grid-cols-[minmax(0,1fr)_420px] gap-6">
-          <div className="relative min-h-[300px] overflow-hidden rounded-[28px] bg-[#f7fffb] p-8 shadow-[0_18px_48px_rgba(6,78,59,0.08)] ring-1 ring-emerald-900/8">
-            <div className="relative z-10 max-w-[430px]">
-              <p className="text-lg font-black text-[#05734d]">Halo, {userName || "Selamat Datang"}!</p>
-              <h1 className="mt-3 text-5xl font-black leading-[1.02] text-[#073d33]">Semua siap.</h1>
-              <p className="mt-5 text-xl font-semibold leading-8 text-[#56746d]">Pulsa, tagihan, saldo.</p>
+        <section className="ss-top">
+          <div className="ss-card ss-hero">
+            <div className="ss-hero-copy">
+              <p className="ss-eyebrow">Halo, {userName || "Selamat Datang"}!</p>
+              <h1 className="ss-title">Semua siap.</h1>
+              <p className="ss-subtitle">Pulsa, tagihan, saldo.</p>
             </div>
             <Image
               src={`${ASSET_BASE}/01_header/ilustrasi_ruang_tamu.webp`}
@@ -345,40 +224,35 @@ export function SakuSiapHomeExperience({
               width={360}
               height={220}
               priority
-              sizes="360px"
-              className="absolute bottom-0 right-0 h-auto w-[42%] max-w-[360px] object-contain"
+              sizes="(min-width: 1200px) 360px, 46vw"
+              className="ss-hero-img"
             />
           </div>
 
-          <div className="grid content-start gap-4">
-            <section className="overflow-hidden rounded-[28px] bg-[linear-gradient(135deg,#056241_0%,#11915f_56%,#70c784_100%)] p-6 text-white shadow-[0_22px_54px_rgba(5,98,65,0.22)]">
-              <div className="flex items-start gap-4">
-                <span className="grid h-14 w-14 shrink-0 place-items-center rounded-[18px] bg-emerald-950/25">
+          <div className="ss-right">
+            <section className="ss-balance">
+              <div className="ss-balance-main">
+                <span className="ss-wallet">
                   <Image
                     src={`${ASSET_BASE}/02_saldo_transparan/saldo_icon_wallet_transparan.webp`}
                     alt=""
                     width={44}
                     height={44}
-                    className="h-10 w-10 object-contain"
                   />
                 </span>
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2 text-sm font-black text-white/90">
+                <div className="ss-balance-meta">
+                  <div className="ss-balance-label">
                     Saldo Utama <Eye className="h-4 w-4" />
                   </div>
-                  <div className="mt-3 whitespace-nowrap text-5xl font-black leading-none">Rp 250.000</div>
+                  <div className="ss-amount">Rp 250.000</div>
                 </div>
               </div>
-              <Link
-                href={links.topup}
-                prefetch={false}
-                className="mt-6 flex items-center justify-center gap-2 rounded-[18px] bg-white px-5 py-3 text-sm font-black text-[#076342] shadow-[0_12px_26px_rgba(0,0,0,0.13)]"
-              >
+              <Link href={links.topup} prefetch={false} className="ss-topup">
                 <Plus className="h-4 w-4" /> Isi Saldo
               </Link>
             </section>
 
-            <section className="grid grid-cols-3 gap-3">
+            <section className="ss-actions">
               <QuickAction href={links.topup} icon={<Plus className="h-4 w-4" />} label="Isi" />
               <QuickAction href={links.transfer} icon={<Send className="h-4 w-4" />} label="Transfer" />
               <QuickAction href={links.history} icon={<ReceiptText className="h-4 w-4" />} label="Riwayat" />
@@ -386,50 +260,45 @@ export function SakuSiapHomeExperience({
           </div>
         </section>
 
-        <section className="mt-6 rounded-[28px] bg-white p-6 shadow-[0_14px_42px_rgba(6,78,59,0.08)] ring-1 ring-emerald-900/8">
-          <div className="mb-5 flex items-center justify-between">
-            <h2 className="text-2xl font-black text-[#073d33]">Layanan</h2>
-            <Link href={links.allServices} prefetch={false} className="flex items-center gap-1 text-sm font-black text-[#3d6d61]">
+        <section className="ss-section">
+          <div className="ss-section-head">
+            <h2 className="ss-section-title">Layanan</h2>
+            <Link href={links.allServices} prefetch={false} className="ss-all">
               Semua <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-          <div className="grid grid-cols-6 gap-4">
+          <div className="ss-services">
             {services.map(([label, key, icon]) => (
-              <Link
-                key={label}
-                href={serviceHref(links, key)}
-                prefetch={false}
-                className="flex flex-col items-center gap-3 rounded-[20px] bg-[#f4fbf7] p-4 text-center ring-1 ring-emerald-900/5"
-              >
-                <span className="grid h-16 w-16 place-items-center rounded-[18px] bg-white shadow-sm">
-                  <Image src={`${ASSET_BASE}${icon}`} alt="" width={42} height={42} className="h-10 w-10 object-contain" />
+              <Link key={label} href={serviceHref(links, key)} prefetch={false} className="ss-service">
+                <span className="ss-service-icon">
+                  <Image src={`${ASSET_BASE}${icon}`} alt="" width={42} height={42} />
                 </span>
-                <span className="text-sm font-black leading-tight text-[#143a34]">{label}</span>
+                <span className="ss-service-label">{label}</span>
               </Link>
             ))}
           </div>
         </section>
 
-        <section className="mt-6 grid grid-cols-[1fr_420px] gap-6">
-          <section className="rounded-[28px] bg-white p-6 shadow-[0_14px_42px_rgba(6,78,59,0.08)] ring-1 ring-emerald-900/8">
-            <div className="mb-3 flex items-center justify-between">
-              <h2 className="text-2xl font-black text-[#073d33]">Aktivitas</h2>
-              <Link href={links.history} prefetch={false} className="flex items-center gap-1 text-sm font-black text-[#3d6d61]">
+        <section className="ss-lower">
+          <section className="ss-section">
+            <div className="ss-section-head">
+              <h2 className="ss-section-title">Aktivitas</h2>
+              <Link href={links.history} prefetch={false} className="ss-all">
                 Semua <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
-            <div className="divide-y divide-emerald-900/8">
+            <div>
               {activities.map(([label, date, amount, icon]) => (
-                <div key={label} className="grid grid-cols-[auto_1fr_auto_auto] items-center gap-4 py-4">
-                  <span className="grid h-12 w-12 place-items-center rounded-[16px] bg-[#fff6d9]">
-                    <Image src={`${ASSET_BASE}${icon}`} alt="" width={30} height={30} className="h-7 w-7 object-contain" />
+                <div key={label} className="ss-activity-row">
+                  <span className="ss-activity-icon">
+                    <Image src={`${ASSET_BASE}${icon}`} alt="" width={30} height={30} />
                   </span>
                   <div className="min-w-0">
-                    <p className="truncate text-base font-black text-[#102b28]">{label}</p>
-                    <p className="text-xs font-bold text-[#6f8491]">{date}</p>
+                    <p className="ss-activity-name">{label}</p>
+                    <p className="ss-activity-date">{date}</p>
                   </div>
-                  <p className="text-base font-black text-[#102b28]">{amount}</p>
-                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 text-xs font-black text-emerald-700">
+                  <p className="ss-activity-amount">{amount}</p>
+                  <span className="ss-status">
                     <CheckCircle2 className="h-3 w-3 fill-emerald-600 text-white" /> OK
                   </span>
                 </div>
@@ -437,15 +306,11 @@ export function SakuSiapHomeExperience({
             </div>
           </section>
 
-          <div className="grid gap-6">
-            <Link
-              href={links.bill}
-              prefetch={false}
-              className="relative min-h-[190px] overflow-hidden rounded-[28px] border border-amber-200/80 bg-[#fff6df] p-6 shadow-[0_14px_42px_rgba(86,60,18,0.09)]"
-            >
-              <div className="relative z-10 max-w-[220px]">
-                <h2 className="text-3xl font-black leading-tight text-[#073d33]">Tagihan rumah. Cepat.</h2>
-                <span className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#075b3e] px-5 py-3 text-sm font-black text-white">
+          <div className="ss-side">
+            <Link href={links.bill} prefetch={false} className="ss-bill">
+              <div className="ss-side-copy">
+                <h2 className="ss-side-title">Tagihan rumah. Cepat.</h2>
+                <span className="ss-side-btn">
                   Bayar <ArrowRight className="h-4 w-4" />
                 </span>
               </div>
@@ -454,19 +319,15 @@ export function SakuSiapHomeExperience({
                 alt=""
                 width={260}
                 height={170}
-                className="absolute bottom-0 right-0 h-auto w-[55%] object-contain"
+                className="ss-bill-img"
               />
             </Link>
 
-            <Link
-              href={links.bill}
-              prefetch={false}
-              className="relative min-h-[190px] overflow-hidden rounded-[28px] bg-[linear-gradient(135deg,#075b3e_0%,#0c7a53_58%,#054b36_100%)] p-6 text-white shadow-[0_22px_54px_rgba(5,98,65,0.18)]"
-            >
-              <div className="relative z-10 max-w-[240px]">
+            <Link href={links.bill} prefetch={false} className="ss-promo">
+              <div className="ss-side-copy">
                 <span className="rounded-full bg-white/16 px-3 py-1 text-xs font-black">Promo</span>
-                <h2 className="mt-5 text-3xl font-black leading-tight">Cashback Rp 25.000</h2>
-                <span className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-black text-[#073d33]">
+                <h2 className="ss-side-title mt-5">Cashback Rp 25.000</h2>
+                <span className="ss-side-btn">
                   Cek <ArrowRight className="h-4 w-4" />
                 </span>
               </div>
@@ -475,14 +336,14 @@ export function SakuSiapHomeExperience({
                 alt=""
                 width={170}
                 height={170}
-                className="absolute -bottom-8 right-0 h-44 w-44 object-contain"
+                className="ss-promo-img"
               />
             </Link>
           </div>
         </section>
       </div>
 
-      <div className="xl:hidden">{bottomNav}</div>
+      <div className="ss-mobile-nav">{bottomNav}</div>
     </main>
   );
 }
