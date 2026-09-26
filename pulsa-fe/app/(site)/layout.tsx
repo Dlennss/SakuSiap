@@ -20,7 +20,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
 
   return (
     <div className="min-h-dvh bg-[#f3f8f5] text-neutral-900 md:grid md:place-items-start md:py-4">
-      <div className="relative mx-auto w-full max-w-md md:w-97.5 md:max-w-none md:border md:border-[#1c4032]/10 md:bg-[#f3f8f5] md:shadow-[0_24px_80px_rgba(6,78,59,0.18)]">
+      <div className="site-layout-frame relative mx-auto w-full max-w-md md:w-97.5 md:max-w-none md:border md:border-[#1c4032]/10 md:bg-[#f3f8f5] md:shadow-[0_24px_80px_rgba(6,78,59,0.18)]">
         <AppTopHeader isLoggedIn={Boolean(session?.backendToken)} />
         <SiteShell>{children}</SiteShell>
       </div>

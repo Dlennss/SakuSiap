@@ -80,6 +80,8 @@ export function SakuSiapHomeExperience({
         dangerouslySetInnerHTML={{
           __html: `
             .brand-app-header{display:none!important}
+            body:has(.sakusiap-home-screen) .site-layout-frame{max-width:none!important;width:100%!important;border:0!important;box-shadow:none!important}
+            body:has(.sakusiap-home-screen) .site-layout-frame>div{min-height:100svh}
             .ss-page{min-height:100svh;background:#edf8f3;color:#073d33}
             .ss-shell{width:min(100%,1180px);margin:0 auto;padding:24px 24px 120px}
             .ss-header{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:18px}
