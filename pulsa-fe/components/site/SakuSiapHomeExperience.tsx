@@ -89,8 +89,8 @@ export function SakuSiapHomeExperience({
       />
 
       <div className="mx-auto min-h-svh w-full max-w-[945px] bg-[#edf8f3] px-4 pb-[96px] pt-4 md:px-8 md:pb-32 xl:hidden">
-        <header className="flex items-center justify-between gap-2">
-          <Link href="/" prefetch={false} className="flex min-w-0 items-center gap-2.5">
+        <header className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
+          <Link href="/" prefetch={false} className="grid min-w-0 grid-cols-[auto_minmax(0,1fr)] items-center gap-2.5">
             <Image
               src={`${ASSET_BASE}/01_header/logo_symbol.webp`}
               alt=""
@@ -99,11 +99,11 @@ export function SakuSiapHomeExperience({
               priority
               className="h-10 w-10 shrink-0 rounded-[13px] shadow-[0_10px_20px_rgba(5,91,67,0.16)] md:h-14 md:w-14"
             />
-            <span className="min-w-0">
-              <span className="block truncate text-xl font-black leading-none text-[#063d34] md:text-4xl">
+            <span className="min-w-0 overflow-hidden">
+              <span className="block max-w-[150px] truncate text-[clamp(1.25rem,6.4vw,2rem)] font-black leading-none text-[#063d34] md:max-w-none md:text-4xl">
                 SakuSiap
               </span>
-              <span className="mt-1 block truncate text-xs font-bold text-[#0a7a55] md:text-base">
+              <span className="mt-1 block max-w-[150px] truncate text-xs font-bold text-[#0a7a55] md:max-w-none md:text-base">
                 Siap sehari-hari
               </span>
             </span>
