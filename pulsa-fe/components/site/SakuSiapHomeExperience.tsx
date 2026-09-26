@@ -156,26 +156,30 @@ export function SakuSiapHomeExperience({
               .ss-mobile-nav{display:block}
             }
             @media (max-width: 720px){
-              .ss-shell{padding:16px 16px 96px}
+              .ss-shell{width:min(100%,430px);padding:14px 14px calc(98px + env(safe-area-inset-bottom))}
+              .ss-header{gap:10px}
               .ss-logo{gap:10px}
-              .ss-logo img{width:40px;height:40px;border-radius:13px}
-              .ss-name{max-width:150px;overflow:hidden;text-overflow:ellipsis;font-size:clamp(20px,6.4vw,32px)}
-              .ss-tagline{max-width:150px;overflow:hidden;text-overflow:ellipsis;font-size:12px}
+              .ss-logo img{width:42px;height:42px;border-radius:13px}
+              .ss-name{max-width:180px;overflow:hidden;text-overflow:ellipsis;font-size:clamp(23px,7vw,30px)}
+              .ss-tagline{max-width:180px;overflow:hidden;text-overflow:ellipsis;font-size:12px}
               .ss-round{width:36px;height:36px}
               .ss-header-actions{gap:6px}
-              .ss-top{gap:20px;margin-top:20px}
-              .ss-hero{min-height:136px;border-radius:22px;padding:16px}
-              .ss-hero-copy{max-width:61%}
+              .ss-top{gap:18px;margin-top:18px}
+              .ss-hero{min-height:158px;border-radius:22px;padding:18px}
+              .ss-hero-copy{max-width:62%}
               .ss-eyebrow{font-size:12px}
-              .ss-title{margin-top:8px;font-size:22px;line-height:1.12}
-              .ss-subtitle{margin-top:8px;font-size:12px;line-height:1.55}
-              .ss-hero-img{width:46%;max-width:150px}
+              .ss-title{margin-top:8px;font-size:30px;line-height:1.05}
+              .ss-subtitle{margin-top:10px;font-size:13px;line-height:1.45}
+              .ss-hero-img{width:48%;max-width:170px}
               .ss-balance{border-radius:24px;padding:16px}
+              .ss-balance-main{gap:12px}
               .ss-wallet{width:44px;height:44px;border-radius:15px}
               .ss-wallet img{width:32px;height:32px}
               .ss-balance-label{font-size:12px}
-              .ss-amount{font-size:clamp(29px,8.5vw,44px)}
+              .ss-amount{font-size:clamp(32px,9vw,42px)}
               .ss-topup{margin-top:16px}
+              .ss-action{padding:11px 8px;font-size:12px;border-radius:16px}
+              .ss-action-icon{width:30px;height:30px}
               .ss-section{margin-top:20px;border-radius:24px;padding:16px}
               .ss-section-title{font-size:18px}
               .ss-services{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
@@ -183,10 +187,27 @@ export function SakuSiapHomeExperience({
               .ss-service-icon{width:56px;height:56px;border-radius:16px}
               .ss-service-icon img{width:36px;height:36px}
               .ss-service-label{font-size:12px}
-              .ss-activity-row{grid-template-columns:auto minmax(0,1fr) auto;gap:12px}
+              .ss-activity-row{grid-template-columns:auto minmax(0,1fr) auto;gap:12px;padding:13px 0}
+              .ss-activity-icon{width:42px;height:42px;border-radius:14px}
+              .ss-activity-name{font-size:14px}
+              .ss-activity-amount{font-size:13px}
               .ss-status{display:none}
               .ss-side{grid-template-columns:1fr}
-              .ss-bill,.ss-promo{border-radius:24px}
+              .ss-bill,.ss-promo{min-height:158px;border-radius:24px;padding:18px}
+              .ss-side-copy{max-width:62%}
+              .ss-side-title{font-size:24px}
+              .ss-side-btn{margin-top:16px;padding:10px 16px}
+              .ss-bill-img{width:48%;max-width:180px}
+              .ss-promo-img{right:-8px;bottom:-30px;width:150px;height:150px}
+            }
+            @media (max-width: 360px){
+              .ss-shell{padding-left:12px;padding-right:12px}
+              .ss-name{max-width:138px;font-size:22px}
+              .ss-tagline{max-width:138px}
+              .ss-hero{min-height:150px;padding:16px}
+              .ss-title{font-size:27px}
+              .ss-hero-img{max-width:150px}
+              .ss-amount{font-size:30px}
             }
           `,
         }}
