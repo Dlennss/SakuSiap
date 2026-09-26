@@ -88,7 +88,7 @@ export function SakuSiapHomeExperience({
         }}
       />
 
-      <div className="mx-auto min-h-svh w-full max-w-[945px] bg-[#edf8f3] px-4 pb-[96px] pt-4 md:px-8 md:pb-32 lg:hidden">
+      <div className="mx-auto min-h-svh w-full max-w-[945px] bg-[#edf8f3] px-4 pb-[96px] pt-4 md:px-8 md:pb-32 xl:hidden">
         <header className="flex items-center justify-between gap-2">
           <Link href="/" prefetch={false} className="flex min-w-0 items-center gap-2.5">
             <Image
@@ -295,7 +295,7 @@ export function SakuSiapHomeExperience({
         </Link>
       </div>
 
-      <div className="mx-auto hidden min-h-svh w-full max-w-7xl px-8 py-8 lg:block">
+      <div className="mx-auto hidden min-h-svh w-full max-w-7xl px-8 py-8 xl:block">
         <header className="flex items-center justify-between">
           <Link href="/" prefetch={false} className="flex items-center gap-4">
             <Image
@@ -490,7 +490,7 @@ export function SakuSiapHomeExperience({
         </section>
       </div>
 
-      <div className="lg:hidden">{bottomNav}</div>
+      <div className="xl:hidden">{bottomNav}</div>
     </main>
   );
 }
