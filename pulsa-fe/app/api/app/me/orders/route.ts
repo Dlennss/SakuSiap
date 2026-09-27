@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import { forwardAuth, requireApiBase } from "@/lib/adminApi";
+import { getBackendAuthorization } from "@/lib/server-auth";
 
 export async function GET(req: Request) {
   const base = requireApiBase();
-  const auth = forwardAuth(new Headers(req.headers));
+  const auth = forwardAuth(new Headers(req.headers)) || (await getBackendAuthorization(req));
   const url = new URL(req.url);
   const qs = url.searchParams.toString();
 

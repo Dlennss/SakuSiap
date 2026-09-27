@@ -153,12 +153,13 @@ export function SakuSiapHomeExperience({
   useEffect(() => {
     if (isLoggedIn) return;
     const token = window.localStorage.getItem("auth_token")?.trim();
-    if (!token) return;
+    const authHeaders = token ? { Authorization: `Bearer ${token}` } : undefined;
 
     let cancelled = false;
     async function hydrateFromToken() {
       const profileRes = await fetch("/api/me/profile", {
-        headers: { Authorization: `Bearer ${token}` },
+        credentials: "include",
+        ...(authHeaders ? { headers: authHeaders } : {}),
         cache: "no-store",
       }).catch(() => null);
       const profileJson = (await profileRes?.json().catch(() => ({}))) as ClientProfileResponse;
@@ -169,7 +170,8 @@ export function SakuSiapHomeExperience({
       }
 
       const ordersRes = await fetch("/api/app/me/orders?limit=3&offset=0", {
-        headers: { Authorization: `Bearer ${token}` },
+        credentials: "include",
+        ...(authHeaders ? { headers: authHeaders } : {}),
         cache: "no-store",
       }).catch(() => null);
       const ordersJson = (await ordersRes?.json().catch(() => ({}))) as ClientOrdersResponse | ClientOrder[];
