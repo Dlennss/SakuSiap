@@ -34,12 +34,12 @@ type SakuSiapHomeExperienceProps = {
 };
 
 const services = [
-  ["Pulsa", "pulsaData", "/05_layanan_icons/pulsa_data_icon.webp"],
-  ["Token", "electricityToken", "/05_layanan_icons/token_listrik_icon.webp"],
-  ["E-Wallet", "ewallet", "/05_layanan_icons/e_wallet_icon.webp"],
-  ["Tagihan", "bill", "/05_layanan_icons/tagihan_icon.webp"],
-  ["Internet", "internet", "/05_layanan_icons/paket_internet_icon.webp"],
-  ["Semua", "allServices", "/05_layanan_icons/lainnya_icon.webp"],
+  ["Pulsa", "pulsaData", "/05_layanan_icons/pulsa_data_icon.png"],
+  ["Token", "electricityToken", "/05_layanan_icons/token_listrik_icon.png"],
+  ["E-Wallet", "ewallet", "/05_layanan_icons/e_wallet_icon.png"],
+  ["Tagihan", "bill", "/05_layanan_icons/tagihan_icon.png"],
+  ["Internet", "internet", "/05_layanan_icons/paket_internet_icon.png"],
+  ["Semua", "allServices", "/05_layanan_icons/lainnya_icon.png"],
 ] as const;
 
 const activities = [
@@ -118,10 +118,10 @@ export function SakuSiapHomeExperience({
             .ss-section-title{font-size:18px;font-weight:900;color:#073d33}
             .ss-all{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:900;color:#3d6d61}
             .ss-services{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-            .ss-service{display:flex;flex-direction:column;align-items:center;gap:8px;border-radius:18px;background:#f4fbf7;padding:12px;text-align:center;border:1px solid rgba(7,61,51,.05)}
-            .ss-service-icon{display:grid;width:56px;height:56px;place-items:center;border-radius:16px;background:#fff;box-shadow:0 8px 18px rgba(6,78,59,.05)}
-            .ss-service-icon img{width:36px;height:36px;object-fit:contain}
-            .ss-service-label{font-size:12px;font-weight:900;color:#143a34}
+            .ss-service{display:flex;min-height:104px;flex-direction:column;align-items:center;justify-content:center;gap:9px;border-radius:18px;background:#f4fbf7;padding:12px 8px;text-align:center;border:1px solid rgba(7,61,51,.05)}
+            .ss-service-icon{display:grid;width:60px;height:60px;flex:0 0 60px;place-items:center;overflow:visible;border-radius:18px;background:#fff;box-shadow:0 8px 18px rgba(6,78,59,.05)}
+            .ss-service-icon img{display:block;width:44px!important;height:44px!important;max-width:44px;max-height:44px;object-fit:contain}
+            .ss-service-label{display:block;width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;line-height:1.15;font-weight:900;color:#143a34}
             .ss-lower{display:grid;grid-template-columns:1fr;gap:20px;margin-top:20px}
             .ss-activity-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:13px 0;border-top:1px solid rgba(7,61,51,.08)}
             .ss-activity-row:first-child{border-top:0}
@@ -177,10 +177,10 @@ export function SakuSiapHomeExperience({
               .ss-section{margin-top:20px;border-radius:24px;padding:16px}
               .ss-section-title{font-size:18px}
               .ss-services{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-              .ss-service{gap:8px;border-radius:18px;padding:12px}
-              .ss-service-icon{width:56px;height:56px;border-radius:16px}
-              .ss-service-icon img{width:36px;height:36px}
-              .ss-service-label{font-size:12px}
+              .ss-service{min-height:104px;gap:9px;border-radius:18px;padding:12px 8px}
+              .ss-service-icon{width:60px;height:60px;flex-basis:60px;border-radius:18px}
+              .ss-service-icon img{width:44px!important;height:44px!important}
+              .ss-service-label{font-size:12px;line-height:1.15}
               .ss-activity-row{grid-template-columns:auto minmax(0,1fr) auto;gap:12px;padding:13px 0}
               .ss-activity-icon{width:42px;height:42px;border-radius:14px}
               .ss-activity-name{font-size:14px}
