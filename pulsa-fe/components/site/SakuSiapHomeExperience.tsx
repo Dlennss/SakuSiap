@@ -117,10 +117,10 @@ export function SakuSiapHomeExperience({
             .ss-section-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}
             .ss-section-title{font-size:18px;font-weight:900;color:#073d33}
             .ss-all{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:900;color:#3d6d61}
-            .ss-services{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-            .ss-service{display:flex;min-height:104px;flex-direction:column;align-items:center;justify-content:center;gap:9px;border-radius:18px;background:#f4fbf7;padding:12px 8px;text-align:center;border:1px solid rgba(7,61,51,.05)}
-            .ss-service-icon{display:grid;width:60px;height:60px;flex:0 0 60px;place-items:center;overflow:visible;border-radius:18px;background:#fff;box-shadow:0 8px 18px rgba(6,78,59,.05)}
-            .ss-service-icon img{display:block;width:44px!important;height:44px!important;max-width:44px;max-height:44px;object-fit:contain}
+            .ss-services{display:grid;grid-template-columns:repeat(3,minmax(0,104px));justify-content:center;gap:12px}
+            .ss-service{display:flex;width:100%;min-width:0;min-height:106px;flex-direction:column;align-items:center;justify-content:center;gap:9px;border-radius:18px;background:#f4fbf7;padding:12px 8px;text-align:center;border:1px solid rgba(7,61,51,.05)}
+            .ss-service-icon{display:grid;width:62px;height:62px;flex:0 0 62px;place-items:center;overflow:hidden;line-height:0;border-radius:18px;background:#fff;box-shadow:0 8px 18px rgba(6,78,59,.05)}
+            .ss-service-icon img{display:block;width:46px!important;height:46px!important;max-width:46px;max-height:46px;margin:auto;object-fit:contain;object-position:center center}
             .ss-service-label{display:block;width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;line-height:1.15;font-weight:900;color:#143a34}
             .ss-lower{display:grid;grid-template-columns:1fr;gap:20px;margin-top:20px}
             .ss-activity-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:13px 0;border-top:1px solid rgba(7,61,51,.08)}
@@ -146,7 +146,7 @@ export function SakuSiapHomeExperience({
             @media (max-width: 1199px){
               .ss-shell{width:min(100%,430px);padding:14px 14px calc(98px + env(safe-area-inset-bottom))}
               .ss-top,.ss-lower{grid-template-columns:1fr}
-              .ss-services{grid-template-columns:repeat(3,minmax(0,1fr))}
+              .ss-services{grid-template-columns:repeat(3,minmax(0,104px));justify-content:center}
               .ss-side{grid-template-columns:1fr}
             }
             @media (max-width: 720px){
@@ -176,10 +176,10 @@ export function SakuSiapHomeExperience({
               .ss-action-icon{width:30px;height:30px}
               .ss-section{margin-top:20px;border-radius:24px;padding:16px}
               .ss-section-title{font-size:18px}
-              .ss-services{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-              .ss-service{min-height:104px;gap:9px;border-radius:18px;padding:12px 8px}
-              .ss-service-icon{width:60px;height:60px;flex-basis:60px;border-radius:18px}
-              .ss-service-icon img{width:44px!important;height:44px!important}
+              .ss-services{grid-template-columns:repeat(3,minmax(0,104px));justify-content:center;gap:12px}
+              .ss-service{width:100%;min-height:106px;gap:9px;border-radius:18px;padding:12px 8px}
+              .ss-service-icon{width:62px;height:62px;flex-basis:62px;border-radius:18px}
+              .ss-service-icon img{width:46px!important;height:46px!important}
               .ss-service-label{font-size:12px;line-height:1.15}
               .ss-activity-row{grid-template-columns:auto minmax(0,1fr) auto;gap:12px;padding:13px 0}
               .ss-activity-icon{width:42px;height:42px;border-radius:14px}
@@ -288,7 +288,7 @@ export function SakuSiapHomeExperience({
             {services.map(([label, key, icon]) => (
               <Link key={label} href={serviceHref(links, key)} prefetch={false} className="ss-service">
                 <span className="ss-service-icon">
-                  <Image src={`${ASSET_BASE}${icon}`} alt="" width={42} height={42} />
+                  <Image src={`${ASSET_BASE}${icon}`} alt="" width={70} height={70} />
                 </span>
                 <span className="ss-service-label">{label}</span>
               </Link>
