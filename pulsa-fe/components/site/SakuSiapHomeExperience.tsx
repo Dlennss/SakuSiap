@@ -30,6 +30,7 @@ type HomeLinks = {
 type SakuSiapHomeExperienceProps = {
   links: HomeLinks;
   bottomNav: React.ReactNode;
+  activities?: HomeActivity[];
   isLoggedIn?: boolean;
   saldo?: number | null;
   userName?: string | null;
@@ -44,11 +45,13 @@ const services = [
   ["Semua", "allServices", "/05_layanan_icons/lainnya_icon.png"],
 ] as const;
 
-const activities = [
-  ["Token PLN", "12 Apr", "Rp 50.000", "/06_aktivitas/aktivitas_icon_token.webp"],
-  ["Pulsa Telkomsel", "10 Apr", "Rp 50.000", "/06_aktivitas/aktivitas_icon_pulsa.webp"],
-  ["PDAM", "8 Apr", "Rp 75.000", "/06_aktivitas/aktivitas_icon_tagihan.webp"],
-] as const;
+export type HomeActivity = {
+  id: string;
+  name: string;
+  date: string;
+  amount: number;
+  icon: string;
+};
 
 function serviceHref(links: HomeLinks, key: (typeof services)[number][1]) {
   return links[key];
@@ -78,6 +81,7 @@ function QuickAction({
 export function SakuSiapHomeExperience({
   links,
   bottomNav,
+  activities = [],
   isLoggedIn = false,
   saldo,
   userName,
@@ -311,31 +315,33 @@ export function SakuSiapHomeExperience({
         </section>
 
         <section className="ss-lower">
-          <section className="ss-section">
-            <div className="ss-section-head">
-              <h2 className="ss-section-title">Aktivitas</h2>
-              <Link href={links.history} prefetch={false} className="ss-all">
-                Semua <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-            <div>
-              {activities.map(([label, date, amount, icon]) => (
-                <div key={label} className="ss-activity-row">
-                  <span className="ss-activity-icon">
-                    <Image src={`${ASSET_BASE}${icon}`} alt="" width={30} height={30} />
-                  </span>
-                  <div className="min-w-0">
-                    <p className="ss-activity-name">{label}</p>
-                    <p className="ss-activity-date">{date}</p>
+          {activities.length > 0 ? (
+            <section className="ss-section">
+              <div className="ss-section-head">
+                <h2 className="ss-section-title">Aktivitas</h2>
+                <Link href={links.history} prefetch={false} className="ss-all">
+                  Semua <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+              <div>
+                {activities.map((activity) => (
+                  <div key={activity.id} className="ss-activity-row">
+                    <span className="ss-activity-icon">
+                      <Image src={`${ASSET_BASE}${activity.icon}`} alt="" width={30} height={30} />
+                    </span>
+                    <div className="min-w-0">
+                      <p className="ss-activity-name">{activity.name}</p>
+                      <p className="ss-activity-date">{activity.date}</p>
+                    </div>
+                    <p className="ss-activity-amount">{formatIDR(activity.amount)}</p>
+                    <span className="ss-status">
+                      <CheckCircle2 className="h-3 w-3 fill-emerald-600 text-white" /> OK
+                    </span>
                   </div>
-                  <p className="ss-activity-amount">{amount}</p>
-                  <span className="ss-status">
-                    <CheckCircle2 className="h-3 w-3 fill-emerald-600 text-white" /> OK
-                  </span>
-                </div>
-              ))}
-            </div>
-          </section>
+                ))}
+              </div>
+            </section>
+          ) : null}
 
           <div className="ss-side">
             <Link href={links.bill} prefetch={false} className="ss-bill">
