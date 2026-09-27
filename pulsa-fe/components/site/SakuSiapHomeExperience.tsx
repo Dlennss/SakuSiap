@@ -149,16 +149,12 @@ export function SakuSiapHomeExperience({
             .ss-activity-amount{font-size:13px;font-weight:900;color:#102b28;white-space:nowrap}
             .ss-status{display:none;align-items:center;gap:4px;border-radius:999px;background:#ecfdf3;padding:4px 10px;font-size:12px;font-weight:900;color:#078153}
             .ss-side{display:grid;grid-template-columns:1fr;gap:20px}
-            .ss-bill,.ss-promo{position:relative;min-height:158px;overflow:hidden;border-radius:24px;padding:18px;box-shadow:0 14px 42px rgba(6,78,59,.08)}
+            .ss-bill{position:relative;min-height:158px;overflow:hidden;border-radius:24px;padding:18px;box-shadow:0 14px 42px rgba(6,78,59,.08)}
             .ss-bill{border:1px solid rgba(251,191,36,.55);background:#fff6df}
-            .ss-promo{background:linear-gradient(135deg,#075b3e 0%,#0c7a53 58%,#054b36 100%);color:#fff}
             .ss-side-copy{position:relative;z-index:1;max-width:62%}
             .ss-side-title{font-size:24px;line-height:1.08;font-weight:900;color:#073d33}
-            .ss-promo .ss-side-title{color:#fff}
             .ss-side-btn{display:inline-flex;margin-top:16px;align-items:center;gap:8px;border-radius:999px;background:#075b3e;padding:10px 16px;font-size:14px;font-weight:900;color:#fff}
-            .ss-promo .ss-side-btn{background:#fff;color:#073d33}
             .ss-bill-img{position:absolute;right:0;bottom:0;width:48%;max-width:180px;height:auto}
-            .ss-promo-img{position:absolute;right:-8px;bottom:-30px;width:150px;height:150px;object-fit:contain}
             .ss-mobile-nav{display:block}
             @media (max-width: 1199px){
               .ss-shell{width:min(100%,430px);padding:14px 14px calc(98px + env(safe-area-inset-bottom))}
@@ -204,12 +200,11 @@ export function SakuSiapHomeExperience({
               .ss-activity-amount{font-size:13px}
               .ss-status{display:none}
               .ss-side{grid-template-columns:1fr}
-              .ss-bill,.ss-promo{min-height:158px;border-radius:24px;padding:18px}
+              .ss-bill{min-height:158px;border-radius:24px;padding:18px}
               .ss-side-copy{max-width:62%}
               .ss-side-title{font-size:24px}
               .ss-side-btn{margin-top:16px;padding:10px 16px}
               .ss-bill-img{width:48%;max-width:180px}
-              .ss-promo-img{right:-8px;bottom:-30px;width:150px;height:150px}
             }
             @media (max-width: 360px){
               .ss-shell{padding-left:12px;padding-right:12px}
@@ -360,22 +355,6 @@ export function SakuSiapHomeExperience({
               />
             </Link>
 
-            <Link href={links.bill} prefetch={false} className="ss-promo">
-              <div className="ss-side-copy">
-                <span className="rounded-full bg-white/16 px-3 py-1 text-xs font-black">Promo</span>
-                <h2 className="ss-side-title mt-5">Cashback Rp 25.000</h2>
-                <span className="ss-side-btn">
-                  Cek <ArrowRight className="h-4 w-4" />
-                </span>
-              </div>
-              <Image
-                src={`${ASSET_BASE}/07_promo/promo_ilustrasi_hp.webp`}
-                alt=""
-                width={170}
-                height={170}
-                className="ss-promo-img"
-              />
-            </Link>
           </div>
         </section>
       </div>
