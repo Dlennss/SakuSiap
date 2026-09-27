@@ -42,8 +42,17 @@ type ClientProfileResponse = {
   ok?: boolean;
   profile?: {
     nama?: string | null;
+    name?: string | null;
     saldo?: number | null;
   };
+  data?: {
+    nama?: string | null;
+    name?: string | null;
+    saldo?: number | null;
+  };
+  nama?: string | null;
+  name?: string | null;
+  saldo?: number | null;
 };
 
 type ClientOrder = {
@@ -145,13 +154,12 @@ export function SakuSiapHomeExperience({
   const [clientName, setClientName] = useState<string | null>(null);
   const [clientSaldo, setClientSaldo] = useState<number | null>(null);
   const [clientActivities, setClientActivities] = useState<HomeActivity[]>([]);
-  const effectiveLoggedIn = isLoggedIn || clientLoggedIn;
-  const effectiveActivities = activities.length > 0 ? activities : clientActivities;
   const displayName = (clientName || userName || "").trim();
+  const effectiveLoggedIn = isLoggedIn || clientLoggedIn || Boolean(displayName);
+  const effectiveActivities = activities.length > 0 ? activities : clientActivities;
   const balanceText = effectiveLoggedIn ? formatIDR(Number(clientSaldo ?? saldo ?? 0)) : "Masuk dulu";
 
   useEffect(() => {
-    if (isLoggedIn) return;
     const token = window.localStorage.getItem("auth_token")?.trim();
     const authHeaders = token ? { Authorization: `Bearer ${token}` } : undefined;
 
@@ -163,10 +171,11 @@ export function SakuSiapHomeExperience({
         cache: "no-store",
       }).catch(() => null);
       const profileJson = (await profileRes?.json().catch(() => ({}))) as ClientProfileResponse;
-      if (!cancelled && profileRes?.ok && profileJson?.ok && profileJson.profile) {
+      const profile = profileJson.profile || profileJson.data || profileJson;
+      if (!cancelled && profileRes?.ok && (profileJson?.ok !== false) && profile) {
         setClientLoggedIn(true);
-        setClientName(String(profileJson.profile.nama || "").trim() || null);
-        setClientSaldo(Number(profileJson.profile.saldo || 0));
+        setClientName(String(profile.nama || profile.name || "").trim() || null);
+        setClientSaldo(Number(profile.saldo || 0));
       }
 
       const ordersRes = await fetch("/api/app/me/orders?limit=3&offset=0", {
