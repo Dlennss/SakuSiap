@@ -1,10 +1,21 @@
 import Script from "next/script";
 import type { Metadata } from "next";
+import { getServerSession } from "next-auth";
 import { getCategories } from "@/lib/api.products";
+import { getUserProfile } from "@/lib/api.auth";
+import { authOptions } from "@/lib/nextauth";
 import type { UserCategoryItem } from "@/components/user/types";
 import { GuestBottomNav } from "@/components/guest/GuestBottomNav";
 import { CANONICAL_SITE_URL } from "@/lib/seo-articles";
 import { SakuSiapHomeExperience } from "@/components/site/SakuSiapHomeExperience";
+
+type SessionShape = {
+  backendToken?: string;
+  user?: {
+    name?: string | null;
+    email?: string | null;
+  };
+};
 
 const homeTitle = "SakuSiap | Pulsa, Paket Data, E-Wallet, Token Listrik, Game & PPOB";
 const homeDescription =
@@ -49,6 +60,11 @@ export const metadata: Metadata = {
 };
 
 export default async function GuestHomePage() {
+  const session = (await getServerSession(authOptions)) as SessionShape | null;
+  const backendToken = session?.backendToken;
+  const isLoggedIn = Boolean(backendToken);
+  const profile = backendToken ? await getUserProfile(backendToken) : null;
+  const displayName = String(profile?.nama || session?.user?.name || "").trim();
   const categories = (await getCategories()) as UserCategoryItem[];
   const activeCategories = categories.filter((item) => item.aktif);
 
@@ -140,18 +156,21 @@ export default async function GuestHomePage() {
 
       <SakuSiapHomeExperience
         links={{
-          topup: "/login",
-          transfer: "/login",
-          history: "/transaksi",
+          topup: isLoggedIn ? "/user/account/topup" : "/login",
+          transfer: isLoggedIn ? "/user/saldo/kirim" : "/login",
+          history: isLoggedIn ? "/user/transaksi" : "/transaksi",
           bill: "/listrik/tagihan",
           allServices: "/kategori",
           pulsaData: "/pulsa-data",
           electricityToken: "/listrik/token",
           ewallet: "/ewallet",
           internet: "/internet-pascabayar",
-          account: "/login",
+          account: isLoggedIn ? "/user/account" : "/login",
         }}
-        bottomNav={<GuestBottomNav isLoggedIn={false} />}
+        bottomNav={<GuestBottomNav isLoggedIn={isLoggedIn} />}
+        isLoggedIn={isLoggedIn}
+        saldo={profile?.saldo ?? null}
+        userName={displayName}
       />
     </>
   );

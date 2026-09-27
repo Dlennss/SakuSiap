@@ -30,6 +30,8 @@ type HomeLinks = {
 type SakuSiapHomeExperienceProps = {
   links: HomeLinks;
   bottomNav: React.ReactNode;
+  isLoggedIn?: boolean;
+  saldo?: number | null;
   userName?: string | null;
 };
 
@@ -52,6 +54,10 @@ function serviceHref(links: HomeLinks, key: (typeof services)[number][1]) {
   return links[key];
 }
 
+function formatIDR(value: number) {
+  return `Rp ${Math.max(0, Math.floor(value)).toLocaleString("id-ID")}`;
+}
+
 function QuickAction({
   href,
   icon,
@@ -72,8 +78,13 @@ function QuickAction({
 export function SakuSiapHomeExperience({
   links,
   bottomNav,
+  isLoggedIn = false,
+  saldo,
   userName,
 }: SakuSiapHomeExperienceProps) {
+  const displayName = userName?.trim();
+  const balanceText = isLoggedIn ? formatIDR(Number(saldo || 0)) : "Masuk dulu";
+
   return (
     <main className="sakusiap-home-screen ss-page">
       <style
@@ -109,6 +120,8 @@ export function SakuSiapHomeExperience({
             .ss-balance-meta{min-width:0;flex:1}
             .ss-balance-label{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:900;color:rgba(255,255,255,.92)}
             .ss-amount{margin-top:12px;white-space:nowrap;font-size:clamp(32px,9vw,42px);line-height:1;font-weight:900;letter-spacing:0}
+            .ss-amount-guest{font-size:clamp(28px,8vw,38px)}
+            .ss-login-hint{margin-top:8px;font-size:12px;font-weight:800;line-height:1.35;color:rgba(255,255,255,.82)}
             .ss-topup{display:flex;margin-top:16px;align-items:center;justify-content:center;gap:8px;border-radius:18px;background:#fff;padding:13px 18px;font-size:14px;font-weight:900;color:#076342;box-shadow:0 12px 26px rgba(0,0,0,.13)}
             .ss-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
             .ss-action{display:flex;min-width:0;align-items:center;justify-content:center;gap:8px;border-radius:16px;background:#fff;padding:11px 8px;font-size:12px;font-weight:900;color:#073d33;box-shadow:0 12px 28px rgba(6,78,59,.08);border:1px solid rgba(7,61,51,.08)}
@@ -231,7 +244,7 @@ export function SakuSiapHomeExperience({
         <section className="ss-top">
           <div className="ss-card ss-hero">
             <div className="ss-hero-copy">
-              <p className="ss-eyebrow">Halo, {userName || "Selamat Datang"}!</p>
+              <p className="ss-eyebrow">Halo, {displayName || "Selamat Datang"}!</p>
               <h1 className="ss-title">Semua siap.</h1>
               <p className="ss-subtitle">Pulsa, tagihan, saldo.</p>
             </div>
@@ -261,11 +274,12 @@ export function SakuSiapHomeExperience({
                   <div className="ss-balance-label">
                     Saldo Utama <Eye className="h-4 w-4" />
                   </div>
-                  <div className="ss-amount">Rp 250.000</div>
+                  <div className={`ss-amount ${isLoggedIn ? "" : "ss-amount-guest"}`}>{balanceText}</div>
+                  {!isLoggedIn ? <p className="ss-login-hint">Login untuk melihat saldo akunmu.</p> : null}
                 </div>
               </div>
               <Link href={links.topup} prefetch={false} className="ss-topup">
-                <Plus className="h-4 w-4" /> Isi Saldo
+                <Plus className="h-4 w-4" /> {isLoggedIn ? "Isi Saldo" : "Login"}
               </Link>
             </section>
 
