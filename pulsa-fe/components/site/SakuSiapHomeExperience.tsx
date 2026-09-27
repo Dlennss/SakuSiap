@@ -1,6 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import type React from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import {
   ArrowRight,
   Bell,
@@ -29,11 +31,33 @@ type HomeLinks = {
 
 type SakuSiapHomeExperienceProps = {
   links: HomeLinks;
-  bottomNav: React.ReactNode;
+  bottomNav: ReactNode;
   activities?: HomeActivity[];
   isLoggedIn?: boolean;
   saldo?: number | null;
   userName?: string | null;
+};
+
+type ClientProfileResponse = {
+  ok?: boolean;
+  profile?: {
+    nama?: string | null;
+    saldo?: number | null;
+  };
+};
+
+type ClientOrder = {
+  id?: number;
+  invoice_id?: string;
+  produk_nama_snapshot?: string;
+  produk_sku_snapshot?: string;
+  harga_final?: number;
+  dibuat_pada?: string | null;
+};
+
+type ClientOrdersResponse = {
+  ok?: boolean;
+  items?: ClientOrder[];
 };
 
 const services = [
@@ -61,6 +85,37 @@ function formatIDR(value: number) {
   return `Rp ${Math.max(0, Math.floor(value)).toLocaleString("id-ID")}`;
 }
 
+function formatActivityDate(value?: string | null) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return date.toLocaleDateString("id-ID", { day: "numeric", month: "short" });
+}
+
+function activityIconForText(value: string) {
+  const text = value.toLowerCase();
+  if (text.includes("token") || text.includes("pln") || text.includes("listrik")) {
+    return "/06_aktivitas/aktivitas_icon_token.webp";
+  }
+  if (text.includes("pulsa") || text.includes("data") || text.includes("telkomsel") || text.includes("indosat") || text.includes("xl")) {
+    return "/06_aktivitas/aktivitas_icon_pulsa.webp";
+  }
+  return "/06_aktivitas/aktivitas_icon_tagihan.webp";
+}
+
+function mapClientActivities(orders: ClientOrder[]): HomeActivity[] {
+  return orders.slice(0, 3).map((order) => {
+    const name = order.produk_nama_snapshot || order.produk_sku_snapshot || "Transaksi";
+    return {
+      id: order.invoice_id || String(order.id || name),
+      name,
+      date: formatActivityDate(order.dibuat_pada),
+      amount: Number(order.harga_final || 0),
+      icon: activityIconForText(`${order.produk_nama_snapshot || ""} ${order.produk_sku_snapshot || ""}`),
+    };
+  });
+}
+
 function QuickAction({
   href,
   icon,
@@ -86,8 +141,49 @@ export function SakuSiapHomeExperience({
   saldo,
   userName,
 }: SakuSiapHomeExperienceProps) {
-  const displayName = userName?.trim();
-  const balanceText = isLoggedIn ? formatIDR(Number(saldo || 0)) : "Masuk dulu";
+  const [clientLoggedIn, setClientLoggedIn] = useState(false);
+  const [clientName, setClientName] = useState<string | null>(null);
+  const [clientSaldo, setClientSaldo] = useState<number | null>(null);
+  const [clientActivities, setClientActivities] = useState<HomeActivity[]>([]);
+  const effectiveLoggedIn = isLoggedIn || clientLoggedIn;
+  const effectiveActivities = activities.length > 0 ? activities : clientActivities;
+  const displayName = (clientName || userName || "").trim();
+  const balanceText = effectiveLoggedIn ? formatIDR(Number(clientSaldo ?? saldo ?? 0)) : "Masuk dulu";
+
+  useEffect(() => {
+    if (isLoggedIn) return;
+    const token = window.localStorage.getItem("auth_token")?.trim();
+    if (!token) return;
+
+    let cancelled = false;
+    async function hydrateFromToken() {
+      const profileRes = await fetch("/api/me/profile", {
+        headers: { Authorization: `Bearer ${token}` },
+        cache: "no-store",
+      }).catch(() => null);
+      const profileJson = (await profileRes?.json().catch(() => ({}))) as ClientProfileResponse;
+      if (!cancelled && profileRes?.ok && profileJson?.ok && profileJson.profile) {
+        setClientLoggedIn(true);
+        setClientName(String(profileJson.profile.nama || "").trim() || null);
+        setClientSaldo(Number(profileJson.profile.saldo || 0));
+      }
+
+      const ordersRes = await fetch("/api/app/me/orders?limit=3&offset=0", {
+        headers: { Authorization: `Bearer ${token}` },
+        cache: "no-store",
+      }).catch(() => null);
+      const ordersJson = (await ordersRes?.json().catch(() => ({}))) as ClientOrdersResponse | ClientOrder[];
+      const orderItems = Array.isArray(ordersJson) ? ordersJson : Array.isArray(ordersJson.items) ? ordersJson.items : [];
+      if (!cancelled && ordersRes?.ok && orderItems.length > 0) {
+        setClientActivities(mapClientActivities(orderItems));
+      }
+    }
+
+    void hydrateFromToken();
+    return () => {
+      cancelled = true;
+    };
+  }, [isLoggedIn]);
 
   return (
     <main className="sakusiap-home-screen ss-page">
@@ -273,12 +369,12 @@ export function SakuSiapHomeExperience({
                   <div className="ss-balance-label">
                     Saldo Utama <Eye className="h-4 w-4" />
                   </div>
-                  <div className={`ss-amount ${isLoggedIn ? "" : "ss-amount-guest"}`}>{balanceText}</div>
-                  {!isLoggedIn ? <p className="ss-login-hint">Login untuk melihat saldo akunmu.</p> : null}
+                  <div className={`ss-amount ${effectiveLoggedIn ? "" : "ss-amount-guest"}`}>{balanceText}</div>
+                  {!effectiveLoggedIn ? <p className="ss-login-hint">Login untuk melihat saldo akunmu.</p> : null}
                 </div>
               </div>
               <Link href={links.topup} prefetch={false} className="ss-topup">
-                <Plus className="h-4 w-4" /> {isLoggedIn ? "Isi Saldo" : "Login"}
+                <Plus className="h-4 w-4" /> {effectiveLoggedIn ? "Isi Saldo" : "Login"}
               </Link>
             </section>
 
@@ -310,7 +406,7 @@ export function SakuSiapHomeExperience({
         </section>
 
         <section className="ss-lower">
-          {activities.length > 0 ? (
+          {effectiveActivities.length > 0 ? (
             <section className="ss-section">
               <div className="ss-section-head">
                 <h2 className="ss-section-title">Aktivitas</h2>
@@ -319,7 +415,7 @@ export function SakuSiapHomeExperience({
                 </Link>
               </div>
               <div>
-                {activities.map((activity) => (
+                {effectiveActivities.map((activity) => (
                   <div key={activity.id} className="ss-activity-row">
                     <span className="ss-activity-icon">
                       <Image src={`${ASSET_BASE}${activity.icon}`} alt="" width={30} height={30} />

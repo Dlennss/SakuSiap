@@ -49,6 +49,9 @@ const homeTitle = "SakuSiap | Pulsa, Paket Data, E-Wallet, Token Listrik, Game &
 const homeDescription =
   "SakuSiap melayani isi pulsa, paket data, top up e-wallet, token listrik, top up game, dan pembayaran PPOB dengan alur cepat untuk pelanggan, member, dan agen.";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: homeTitle,
   description: homeDescription,
