@@ -1,10 +1,9 @@
 import Script from "next/script";
 import type { Metadata } from "next";
-import { getServerSession } from "next-auth";
 import { getCategories } from "@/lib/api.products";
 import { getUserProfile } from "@/lib/api.auth";
 import { getUserOrders } from "@/lib/api.transactions";
-import { authOptions } from "@/lib/nextauth";
+import { getAppServerSession } from "@/lib/server-auth";
 import type { UserAppOrder, UserCategoryItem } from "@/components/user/types";
 import { GuestBottomNav } from "@/components/guest/GuestBottomNav";
 import { CANONICAL_SITE_URL } from "@/lib/seo-articles";
@@ -89,7 +88,7 @@ export const metadata: Metadata = {
 };
 
 export default async function GuestHomePage() {
-  const session = (await getServerSession(authOptions)) as SessionShape | null;
+  const session = (await getAppServerSession()) as SessionShape | null;
   const backendToken = session?.backendToken;
   const isLoggedIn = Boolean(backendToken);
   const profile = backendToken ? await getUserProfile(backendToken) : null;
