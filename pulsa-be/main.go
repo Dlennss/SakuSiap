@@ -3,10 +3,12 @@ package main
 import (
 	"context"
 	"database/sql"
+	_ "embed"
 	"log"
 	"net"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 
 	_ "github.com/lib/pq"
@@ -29,6 +31,11 @@ import (
 	"pulsa2/yuscom"
 )
 
+const pulsa24JamDashboardSeedExpectedProducts = 15085
+
+//go:embed sql/20260921_seed_pulsa24jam_h2hr_dashboard_products.sql
+var pulsa24JamDashboardSeedSQL string
+
 func connectDB(dsn string) *sql.DB {
 	conn, err := sql.Open("postgres", dsn)
 	if err != nil {
@@ -49,11 +56,47 @@ func connectDB(dsn string) *sql.DB {
 	return conn
 }
 
+func seedPulsa24JamDashboardCatalog(db *sql.DB) {
+	if db == nil || strings.EqualFold(strings.TrimSpace(os.Getenv("PULSA24JAM_DASHBOARD_SEED_DISABLED")), "true") {
+		return
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 90*time.Second)
+	defer cancel()
+
+	var activeCount int
+	err := db.QueryRowContext(ctx, `
+		SELECT COUNT(*)
+		FROM public.produk_app_pricing
+		WHERE provider = 'pulsa24jam'
+		  AND aktif = true
+	`).Scan(&activeCount)
+	if err == nil && activeCount == pulsa24JamDashboardSeedExpectedProducts {
+		log.Printf("pulsa24jam dashboard seed dilewati: %d produk aktif sudah sesuai", activeCount)
+		return
+	}
+	if err != nil {
+		log.Printf("pulsa24jam dashboard seed cek katalog gagal: %v", err)
+	}
+
+	sqlText := strings.TrimSpace(pulsa24JamDashboardSeedSQL)
+	if sqlText == "" {
+		log.Printf("pulsa24jam dashboard seed kosong")
+		return
+	}
+	if _, execErr := db.ExecContext(ctx, sqlText); execErr != nil {
+		log.Printf("pulsa24jam dashboard seed gagal: %v", execErr)
+		return
+	}
+	log.Printf("pulsa24jam dashboard seed selesai: %d produk dari export H2HR", pulsa24JamDashboardSeedExpectedProducts)
+}
+
 func main() {
 	cfg := config.Load()
 
 	dbConn := connectDB(cfg.DatabaseURL)
 	defer dbConn.Close()
+	seedPulsa24JamDashboardCatalog(dbConn)
 
 	var ys *yuscom.Client
 	if cfg.YuscomBaseURL != "" && cfg.YuscomMemberID != "" && cfg.YuscomPIN != "" && cfg.YuscomPassword != "" {
