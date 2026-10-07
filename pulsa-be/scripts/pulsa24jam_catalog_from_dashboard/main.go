@@ -128,7 +128,7 @@ func appendUsefulHeading(headings []string, value string) []string {
 func isNoiseHeading(value string) bool {
 	switch strings.ToLower(strings.TrimSpace(value)) {
 	case "pulsa24jam", "dashboard", "produk h2hr", "request deposit", "pengaturan", "dokumentasi",
-		"history", "mutasi", "transaksi", "deposit", "logout", "profil aktif", "pulsa kilat",
+		"history", "mutasi", "transaksi", "deposit", "logout", "profil aktif", "pulsa kilat", "saku siap",
 		"member h2hr", "role aktif di sesi ini", "total produk aktif", "produk dengan harga tetap",
 		"daftar produk", "gunakan sku internal ini untuk transaksi h2hr.", "cari sku / nama produk",
 		"semua kategori", "semua brand":
@@ -288,9 +288,15 @@ func writeMigration(path string, products []productRow) error {
 	fmt.Fprintln(w, "BEGIN;")
 	fmt.Fprintln(w, "")
 	fmt.Fprintln(w, "ALTER TABLE public.produk_provider_map")
+	fmt.Fprintln(w, "  ADD COLUMN IF NOT EXISTS special_code TEXT;")
+	fmt.Fprintln(w, "ALTER TABLE public.produk_provider_map")
+	fmt.Fprintln(w, "  ADD COLUMN IF NOT EXISTS mode TEXT NOT NULL DEFAULT 'normal';")
+	fmt.Fprintln(w, "ALTER TABLE public.produk_provider_map")
 	fmt.Fprintln(w, "  ADD COLUMN IF NOT EXISTS minimal_nominal BIGINT NULL;")
 	fmt.Fprintln(w, "ALTER TABLE public.produk_provider_map")
 	fmt.Fprintln(w, "  ADD COLUMN IF NOT EXISTS maksimal_nominal BIGINT NULL;")
+	fmt.Fprintln(w, "ALTER TABLE public.produk_provider_map")
+	fmt.Fprintln(w, "  ADD COLUMN IF NOT EXISTS fee_rp BIGINT NOT NULL DEFAULT 0;")
 	fmt.Fprintln(w, "")
 	fmt.Fprintln(w, "DO $$")
 	fmt.Fprintln(w, "BEGIN")
